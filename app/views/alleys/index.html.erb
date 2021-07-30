@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Alleys</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @alleys.each do |alley| %>
+      <tr>
+        <td><%= alley.name %></td>
+        <td><%= alley.address_id %></td>
+        <td><%= link_to 'Show', alley %></td>
+        <td><%= link_to 'Edit', edit_alley_path(alley) %></td>
+        <td><%= link_to 'Destroy', alley, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Alley', new_alley_path %>

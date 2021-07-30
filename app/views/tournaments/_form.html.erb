@@ -1,0 +1,66 @@
+<%= form_with(model: tournament) do |form| %>
+  <% if tournament.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
+
+      <ul>
+        <% tournament.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :alley_id %>
+    <%= form.select :alley_id, options_for_select(@alleys.map{|a| ["#{a.name} - #{a.address.city}, #{a.address.state}", a.id]}), prompt: 'Select One' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :starts_at %>
+    <%= form.datetime_select :starts_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :format %>
+    <%= form.text_area :format %>
+  </div>
+
+  <div class="field">
+    <%= form.label :participants %>
+    <%= form.text_field :participants %>
+  </div>
+
+  <div class="field">
+    <%= form.label :flyer_url %>
+    <%= form.text_field :flyer_url %>
+  </div>
+
+  <h2>Contact</h2>
+
+  <%= form.fields_for :contact_attributes do |contact| %>
+    <div class="field">
+      <%= contact.label :name %>
+      <%= contact.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= contact.label :email %>
+      <%= contact.text_field :email %>
+    </div>
+
+    <div class="field">
+      <%= contact.label :phone %>
+      <%= contact.text_field :phone %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
