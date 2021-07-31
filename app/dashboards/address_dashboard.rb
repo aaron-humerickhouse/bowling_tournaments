@@ -14,8 +14,8 @@ class AddressDashboard < Administrate::BaseDashboard
     city: Field::String,
     state: Field::String,
     zip_code: Field::String,
-    latitude: Field::Float,
-    longitude: Field::Float,
+    latitude: Field::Number,
+    longitude: Field::Number,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze

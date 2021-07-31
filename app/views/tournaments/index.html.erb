@@ -4,22 +4,31 @@
 
 <h1>Tournaments</h1>
 <form id="search-form">
-  <div class="field">
-    <%= label_tag 'Zip Code' %>
-    <%= text_field_tag(:zip_code) %>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field is-normal">
+        <%= label_tag('Zip Code', nil, class: 'label') %>
+        <div class="control">
+          <%= text_field_tag(:zip_code, nil, class: 'input') %>
+        </div>
+      </div>
+      <div class="field is-normal">
+        <%= label_tag('Search Radius (miles)', nil, class: 'label') %>
+        <div class="control">
+          <%= select_tag(:miles, options_for_select([5,15,25, 50, 100, 250, 1000], 50), class: 'select') %>
+        </div>
+      </div>
+      <div class="field is-normal">
+        <%= label_tag('Months in Advance', nil, class: 'label') %>
+        <div class="control">
+          <%= select_tag(:months, options_for_select((1..12), 3), class: 'select') %>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= label_tag 'Search Radius (miles)' %>
-    <%= select_tag(:miles, options_for_select([5,15,25, 50, 100, 250, 1000], 50)) %>
+  <div class="actions" id="search-div">
+    <a id="search" class="button is-primary" onclick="submitSearch()">Search</a>
   </div>
-  <div class="field">
-    <%= label_tag 'Months in Advance' %>
-    <%= select_tag(:months, options_for_select((1..12), 3)) %>
-  </div>
-  <div class="actions">
-    <a onclick="submitSearch()">Search</a>
-  </div>
-
 </form>
 
 <table>
@@ -56,4 +65,4 @@
 
 <br>
 
-<%= link_to 'New Tournament', new_tournament_path %>
+<%= link_to 'New Tournament', new_tournament_path, class: 'button is-primary' %>

@@ -1,4 +1,5 @@
 class Address < ApplicationRecord
+  include Carmen
   has_one :alley
   has_many :tournaments
 

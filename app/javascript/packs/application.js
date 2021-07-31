@@ -11,3 +11,22 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+function toggleMenu() {
+  const burger = $("#navbar-burger")
+
+  if (burger.hasClass('is-active')) {
+    burger.removeClass('is-active')
+    $('#navbar').removeClass('is-active')
+  } else {
+    burger.addClass('is-active')
+    $('#navbar').addClass('is-active')
+  }
+}
+
+document.addEventListener('turbolinks:load', () => {
+  const clickButton = document.getElementById("navbar-burger");
+  clickButton.addEventListener('click', (event) => {
+    toggleMenu()
+  });
+});

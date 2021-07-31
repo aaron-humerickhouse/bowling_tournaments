@@ -12,39 +12,51 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.label :name, class: 'label' %>
+    <div class="control">
+      <%= form.text_field :name, class: 'input' %>
+    </div>
   </div>
 
-  <h2>Address</h2>
+  <h4 class="subtitle is-4">Address</h4>
   <%= form.fields_for :address_attributes do |address| %>
     <div class="field">
-      <%= address.label :street_address %>
-      <%= address.text_field :street_address %>
+      <%= form.label :street_address, class: 'label' %>
+      <div class="control">
+        <%= form.text_field :street_address, class: 'input' %>
+      </div>
     </div>
 
     <div class="field">
-      <%= address.label :secondary_address %>
-      <%= address.text_field :secondary_address %>
+      <%= form.label :secondary_address, class: 'label' %>
+      <div class="control">
+        <%= form.text_field :secondary_address, class: 'input' %>
+      </div>
     </div>
 
     <div class="field">
-      <%= address.label :city %>
-      <%= address.text_field :city %>
+      <%= form.label :city, class: 'label' %>
+      <div class="control">
+        <%= form.text_field :city, class: 'input' %>
+      </div>
     </div>
 
     <div class="field">
-      <%= address.label :state %>
-      <%= address.text_field :state %>
+      <%= form.label :state, class: 'label' %>
+      <div class="control">
+        <%= form.text_field :state, class: 'input' %>
+      </div>
     </div>
 
     <div class="field">
-      <%= address.label :zip_code %>
-      <%= address.text_field :zip_code %>
+      <%= form.label :zip_code, class: 'label' %>
+      <div class="control">
+        <%= form.text_field :zip_code, class: 'input' %>
+      </div>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "button is-primary" %>
   </div>
 <% end %>
