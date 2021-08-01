@@ -25,14 +25,17 @@ ActiveRecord::Schema.define(version: 2021_07_30_030434) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
+    t.index ["street_address", "secondary_address", "city", "state", "zip_code"], name: "index_on_full_address", unique: true
   end
 
   create_table "alleys", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "address_id", null: false
+    t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["address_id"], name: "index_alleys_on_address_id"
+    t.index ["name", "address_id"], name: "index_alleys_on_name_and_address_id", unique: true
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -41,6 +44,7 @@ ActiveRecord::Schema.define(version: 2021_07_30_030434) do
     t.string "phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name", "email", "phone"], name: "index_contacts_on_name_and_email_and_phone"
   end
 
   create_table "tournaments", force: :cascade do |t|
@@ -49,18 +53,21 @@ ActiveRecord::Schema.define(version: 2021_07_30_030434) do
     t.datetime "starts_at"
     t.string "format", array: true
     t.string "participants", array: true
+    t.string "difficulty"
     t.string "flyer_url"
     t.bigint "contact_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["alley_id"], name: "index_tournaments_on_alley_id"
     t.index ["contact_id"], name: "index_tournaments_on_contact_id"
+    t.index ["name", "alley_id", "starts_at"], name: "index_tournaments_on_name_and_alley_id_and_starts_at"
   end
 
   create_table "user_settings", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "notification_search_radius"
-    t.integer "notification_period", array: true
+    t.integer "notification_search_radius", null: false
+    t.integer "notification_period", null: false, array: true
+    t.string "zip_code", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_user_settings_on_user_id"
@@ -71,7 +78,6 @@ ActiveRecord::Schema.define(version: 2021_07_30_030434) do
     t.string "encrypted_password", default: "", null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.string "zip_code", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

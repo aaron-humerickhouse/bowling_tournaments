@@ -29,11 +29,13 @@ gem 'administrate', '~> 0.16'
 gem 'bulma-rails'
 gem 'devise'
 gem 'geocoder'
+gem 'google-maps'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
+  gem 'dotenv-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'

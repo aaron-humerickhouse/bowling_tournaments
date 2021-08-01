@@ -10,6 +10,7 @@ class AlleyDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
+    phone_number: Field::String,
     address: Field::BelongsTo,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -22,9 +23,9 @@ class AlleyDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    address
     name
-    created_at
+    phone_number
+    address
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -32,6 +33,7 @@ class AlleyDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
+    phone_number
     address
     created_at
     updated_at
@@ -42,6 +44,7 @@ class AlleyDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
+    phone_number
     address
   ].freeze
 

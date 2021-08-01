@@ -17,7 +17,8 @@ class AddressDashboard < Administrate::BaseDashboard
     latitude: Field::Number,
     longitude: Field::Number,
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at:
+      Field::DateTime,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -73,7 +74,8 @@ class AddressDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how addresses are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(address)
-  #   "Address ##{address.id}"
-  # end
+  def display_resource(address)
+    secondary_address = address.secondary_address ? ", #{address.secondary_address}" : ''
+    "#{address.street_address}#{secondary_address}, #{address.city}, #{address.state} #{address.zip_code}"
+  end
 end

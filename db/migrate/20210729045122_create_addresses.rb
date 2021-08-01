@@ -9,5 +9,7 @@ class CreateAddresses < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+    
+    add_index :addresses, %i[street_address secondary_address city state zip_code], unique: true, name: :index_on_full_address
   end
 end

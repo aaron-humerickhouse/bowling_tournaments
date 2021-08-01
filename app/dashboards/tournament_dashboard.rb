@@ -14,6 +14,7 @@ class TournamentDashboard < Administrate::BaseDashboard
     name: Field::String,
     starts_at: Field::DateTime,
     format: Field::String,
+    difficulty: Field::String,
     participants: Field::String,
     flyer_url: Field::String,
     created_at: Field::DateTime,
@@ -42,6 +43,7 @@ class TournamentDashboard < Administrate::BaseDashboard
     starts_at
     format
     participants
+    difficulty
     flyer_url
     created_at
     updated_at
@@ -56,6 +58,7 @@ class TournamentDashboard < Administrate::BaseDashboard
     name
     starts_at
     format
+    difficulty
     participants
     flyer_url
   ].freeze
