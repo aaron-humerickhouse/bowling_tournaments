@@ -37,16 +37,9 @@
       <%= form.select(:state,
                       options_for_select(states_option),
                       { },
-                      {'data-style': 'form-control', class: 'form-control selectpicker', prompt: 'Select State', 'data-live-search': "true"}
+                      {class: 'form-control selectpicker', prompt: 'Select State', 'data-live-search': "true"}
           )
       %>
-      <%= form.select(:state,
-                      options_for_select(states_option),
-                      { },
-                      {class: 'form-control', id: 'test-select', prompt: 'Select One', 'data-live-search': "true"}
-          )
-      %>
-
     </div>
 
     <div class="mb-3">

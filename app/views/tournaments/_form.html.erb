@@ -21,7 +21,7 @@
     <%= form.select(:alley_id,
                     options_for_select(@alleys.map{|a| ["#{a.name} - #{a.address.city}, #{a.address.state}", a.id]}),
                     { },
-                    {class: 'form-select', prompt: 'Select One'}
+                    {class: 'form-select selectpicker', prompt: 'Select One', 'data-live-search': "true"}
         )
     %>
   </div>

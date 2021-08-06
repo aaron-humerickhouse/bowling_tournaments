@@ -14,8 +14,8 @@
  //*= require_self
  */
 
-@import "../../../node_modules/bootstrap-select/sass/bootstrap-select";
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../node_modules/bootstrap-select/sass/bootstrap-select";
 
 a.btn.back:hover, a.btn.back:focus, a.btn.back {
   color: white !important;
@@ -24,7 +24,7 @@ a.btn.back:hover, a.btn.back:focus, a.btn.back {
 .bootstrap-select button.dropdown-toggle {
   border-color: $custom-select-border-color !important;
   border-width: $custom-select-border-width !important;
-  background: $custom-select-background !important;
+  background: $custom-select-bg !important;
   color: $custom-select-color !important;
 }
 
@@ -33,7 +33,14 @@ div.dropdown-menu li a[role="option"] {
   color: $custom-select-color !important;
 }
 
-div.dropdown-menu li a.selected[role="option"] {
+div.dropdown-menu li a.active[role="option"] {
   font-size: $custom-select-font-size !important;
-  background-color: #C7DEFF !important;
+  background-color: $primary !important;
+  color: $yiq-text-light !important;
+}
+
+div.dropdown-menu li a.active.selected[role="option"] {
+  font-size: $custom-select-font-size !important;
+  background-color: $primary !important;
+  color: $yiq-text-light !important;
 }

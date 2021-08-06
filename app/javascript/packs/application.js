@@ -17,3 +17,7 @@ import 'bootstrap-select'
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+$(document).ready(function() {
+  $('#alley_state.select').selectpicker();
+});
