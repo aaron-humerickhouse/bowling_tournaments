@@ -69,7 +69,7 @@ class TournamentsController < ApplicationController
   end
 
   def get_alleys
-    @alleys = Alley.all
+    @alleys = Alley.order(:name)
   end
 
   def index_params
@@ -78,8 +78,8 @@ class TournamentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def tournament_params
-    params.require(:tournament).permit(:name, :alley_id, :starts_at, :format, :participants, :flyer_url,
-                                       contact_attributes: %i[name email phone])
+    params.require(:tournament).permit(:name, :alley_id, :starts_at, :flyer_url,
+                                       contact_attributes: %i[name email phone], format: [], participants: [])
   end
 
   def filter_tournaments_by_distance(tournaments)

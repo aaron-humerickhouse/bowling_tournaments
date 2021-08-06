@@ -26,7 +26,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 
 gem 'administrate', '~> 0.16'
-gem 'bulma-rails'
+# gem 'bootstrap'
 gem 'devise'
 gem 'geocoder'
 gem 'google-maps'

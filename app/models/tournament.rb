@@ -9,7 +9,8 @@ class Tournament < ApplicationRecord
                                     attributes['email'].blank?
                                   )
                                 }
-
+  FORMAT_OPTIONS = %i[SINGLES DOUBLES TEAM DUTCH BAKER OTHER].freeze
+  PARTICIPANTS_OPTIONS = %i[MENS WOMENS MIXED YOUTH].freeze
 
 
 end

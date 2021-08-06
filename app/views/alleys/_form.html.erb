@@ -1,3 +1,5 @@
+<%= javascript_pack_tag 'alleys', 'data-turbolinks-track': 'reload' %>
+
 <%= form_with(model: alley) do |form| %>
   <% if alley.errors.any? %>
     <div id="error_explanation">
@@ -11,48 +13,45 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name, class: 'label' %>
-    <div class="control">
-      <%= form.text_field :name, class: 'input' %>
-    </div>
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
   <h4 class="subtitle is-4">Address</h4>
   <%= form.fields_for :address_attributes do |address| %>
-    <div class="field">
-      <%= form.label :street_address, class: 'label' %>
-      <div class="control">
-        <%= form.text_field :street_address, class: 'input' %>
-      </div>
+    <div class="mb-3">
+      <%= address.label :street_address, class: 'form-label' %>
+      <%= address.text_field :street_address, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= address.label :secondary_address, class: 'form-label' %>
+      <%= address.text_field :secondary_address, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= address.label :city, class: 'form-label' %>
+      <%= address.text_field :city, class: 'form-control' %>
+    </div>
+    <div class="mb-3">
+      <%= form.label :state, class: 'form-label' %>
+      <%= form.select(:state,
+                      options_for_select(states_option),
+                      { },
+                      {'data-style': 'form-control', class: 'form-control selectpicker', prompt: 'Select State', 'data-live-search': "true"}
+          )
+      %>
+      <%= form.select(:state,
+                      options_for_select(states_option),
+                      { },
+                      {class: 'form-control', id: 'test-select', prompt: 'Select One', 'data-live-search': "true"}
+          )
+      %>
+
     </div>
 
-    <div class="field">
-      <%= form.label :secondary_address, class: 'label' %>
-      <div class="control">
-        <%= form.text_field :secondary_address, class: 'input' %>
-      </div>
-    </div>
-
-    <div class="field">
-      <%= form.label :city, class: 'label' %>
-      <div class="control">
-        <%= form.text_field :city, class: 'input' %>
-      </div>
-    </div>
-
-    <div class="field">
-      <%= form.label :state, class: 'label' %>
-      <div class="control">
-        <%= form.text_field :state, class: 'input' %>
-      </div>
-    </div>
-
-    <div class="field">
-      <%= form.label :zip_code, class: 'label' %>
-      <div class="control">
-        <%= form.text_field :zip_code, class: 'input' %>
-      </div>
+    <div class="mb-3">
+      <%= address.label :zip_code, class: 'form-label' %>
+      <%= address.text_field :zip_code, class: 'form-control' %>
     </div>
   <% end %>
 

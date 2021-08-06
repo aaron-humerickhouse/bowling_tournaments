@@ -15,16 +15,23 @@ $(document).ready(function() {
     $('#search-form #months').val(months)
   }
 
+  clearSearch = () => {
+    $('#search-form #zip_code').val('')
+    $('#search-form #miles').val('')
+    $('#search-form #months').val('')
+    window.location.href = '/tournaments';
+
+  }
   submitSearch = () => {
     const zip_code = $('#search-form #zip_code').val();
-    console.log(zip_code)
-    if (zip_code === "") {
-      $('#notice').text('Zip Code is required');
-      return
-    }
-    const miles = $('#search-form #miles').val();
-    const months = $('#search-form #months').val();
+    const miles = $('#search-form #miles').val() || '';
 
-    window.location.href = `/tournaments?zip_code=${zip_code}&miles=${miles}&months=${months}`;
+    if ((zip_code !== "" && miles === "") || (zip_code === "" && miles !== "")) {
+      $('#notice').text('Zip Code and radius are required together');
+    } else {
+      const months = $('#search-form #months').val();
+
+      window.location.href = `/tournaments?zip_code=${zip_code}&miles=${miles}&months=${months}`;
+    }
   }
 })

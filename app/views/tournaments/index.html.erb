@@ -3,35 +3,26 @@
 <%= javascript_pack_tag 'tournaments', 'data-turbolinks-track': 'reload' %>
 
 <h1>Tournaments</h1>
-<form id="search-form">
-  <div class="field is-horizontal">
-    <div class="field-body">
-      <div class="field is-normal">
-        <%= label_tag('Zip Code', nil, class: 'label') %>
-        <div class="control">
-          <%= text_field_tag(:zip_code, nil, class: 'input') %>
-        </div>
-      </div>
-      <div class="field is-normal">
-        <%= label_tag('Search Radius (miles)', nil, class: 'label') %>
-        <div class="control">
-          <%= select_tag(:miles, options_for_select([5,15,25, 50, 100, 250, 1000], 50), class: 'select') %>
-        </div>
-      </div>
-      <div class="field is-normal">
-        <%= label_tag('Months in Advance', nil, class: 'label') %>
-        <div class="control">
-          <%= select_tag(:months, options_for_select((1..12), 3), class: 'select') %>
-        </div>
-      </div>
-    </div>
+<form id="search-form" class="row g-3">
+  <div class="col-md-4">
+      <%= label_tag('Zip Code', nil, for: 'zip_code', class: 'form-label') %>
+      <%= text_field_tag(:zip_code, nil, class: 'input form-control') %>
   </div>
-  <div class="actions" id="search-div">
-    <a id="search" class="button is-primary" onclick="submitSearch()">Search</a>
+  <div class="col-md-4">
+      <%= label_tag('Search Radius (miles)', nil, for: 'miles', class: 'form-label') %>
+      <%= select_tag(:miles, options_for_select([5,15,25, 50, 100, 250, 1000], 50), class: 'select form-select') %>
+  </div>
+  <div class="col-md-4">
+      <%= label_tag('Months in Advance', nil, for: 'months', class: 'form-label') %>
+      <%= select_tag(:months, options_for_select((1..12), 3), class: 'select form-select') %>
+  </div>
+  <div class="col-12" id="search-div">
+    <button id="search" class="btn btn-primary mb-3" type="submit" onclick="submitSearch()">Search</button>
+    <button id="clear" class="btn btn-secondary back mb-3" type="submit" onclick="clearSearch()">Clear</button>
   </div>
 </form>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -39,8 +30,6 @@
       <th>Starts at</th>
       <th>Format</th>
       <th>Participants</th>
-      <th>Flyer url</th>
-      <th>Contact</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -49,12 +38,10 @@
     <% @tournaments.each do |tournament| %>
       <tr>
         <td><%= tournament.name %></td>
-        <td><%= tournament.alley_id %></td>
+        <td><%= tournament.alley.readable %></td>
         <td><%= tournament.starts_at %></td>
         <td><%= tournament.format %></td>
         <td><%= tournament.participants %></td>
-        <td><%= tournament.flyer_url %></td>
-        <td><%= tournament.contact_id %></td>
         <td><%= link_to 'Show', tournament %></td>
         <td><%= link_to 'Edit', edit_tournament_path(tournament) %></td>
         <td><%= link_to 'Destroy', tournament, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -65,4 +52,6 @@
 
 <br>
 
-<%= link_to 'New Tournament', new_tournament_path, class: 'button is-primary' %>
+<div class="col-12">
+<%= button_to 'New Tournament', new_tournament_path, class: 'btn btn-primary', method: 'get' %>
+</div>
