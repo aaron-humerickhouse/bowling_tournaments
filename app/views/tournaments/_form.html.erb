@@ -21,14 +21,14 @@
     <%= form.select(:alley_id,
                     options_for_select(@alleys.map{|a| ["#{a.name} - #{a.address.city}, #{a.address.state}", a.id]}),
                     { },
-                    {class: 'form-select selectpicker', prompt: 'Select One', 'data-live-search': "true"}
+                    {class: 'form-control selectpicker', prompt: 'Select One', 'data-live-search': "true"}
         )
     %>
+    <small id="emailHelp" class="form-text text-primary"><%= link_to 'Alley not found?', new_alley_path %></small>
   </div>
-
   <div class="mb-3 form-row">
     <%= form.label :starts_at, class: 'form-label' %>
-    <%= form.datetime_select :starts_at, {}, class: 'form-select' %>
+    <%= form.datetime_select :starts_at, {}, class: 'form-control' %>
   </div>
 
   <div class="mb-3">

@@ -1,4 +1,7 @@
-<%= form_with(model: user_setting) do |form| %>
+<%= form_with(url: settings_path, method: :put, model: @user_setting) do |form| %>
+
+
+
   <% if user_setting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user_setting.errors.count, "error") %> prohibited this user_setting from being saved:</h2>
@@ -12,13 +15,18 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+    <%= form.label :zip_code %>
+    <%= form.number_field :zip_code %>
   </div>
 
   <div class="field">
     <%= form.label :notification_search_radius %>
     <%= form.number_field :notification_search_radius %>
+  </div>
+
+  <div class="field">
+    <%= form.label :notification_period %>
+    <%= form.text_field :notification_period %>
   </div>
 
   <div class="actions">

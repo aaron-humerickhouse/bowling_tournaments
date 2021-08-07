@@ -9,6 +9,8 @@ class TournamentsController < ApplicationController
 
   # GET /tournaments or /tournaments.json
   def index
+    set_tournament_query_params
+
     tournaments = fetch_tournaments_by_date_range
     @tournaments = filter_tournaments_by_distance(tournaments)
   end
@@ -102,5 +104,21 @@ class TournamentsController < ApplicationController
     range = [DateTime.current..months.months.from_now]
 
     Tournament.where(starts_at: range)
+  end
+
+  def set_tournament_query_params
+    return unless current_user
+
+    return if request.query_parameters.any?
+
+
+    redirect_to(
+      controller: :tournaments,
+      action: :index,
+      tournaments: @tournaments || [],
+      zip_code: current_user.user_setting.zip_code,
+      miles: current_user.user_setting.notification_search_radius,
+      months: current_user.user_setting.notification_period.sort.last.days.in_months.ceil
+    )
   end
 end

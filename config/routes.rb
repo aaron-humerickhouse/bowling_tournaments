@@ -1,17 +1,22 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :tournaments
   resources :contacts
-  resources :user_settings
+
+  get '/settings', to: 'user_settings#show'
+  match 'settings/edit' => 'user_settings#edit', via: :get, as: :edit_settings
+
   get 'home/index'
   devise_for :users
   root to: 'home#index'
-  
-  namespace :admin do
-      resources :alleys
-      resources :addresses
-      resources :users
 
-      root to: 'alleys#index'
+  namespace :admin do
+    resources :alleys
+    resources :addresses
+    resources :users
+
+    root to: 'alleys#index'
   end
 
   resources :alleys

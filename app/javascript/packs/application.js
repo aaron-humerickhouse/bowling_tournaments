@@ -19,5 +19,5 @@ Turbolinks.start()
 ActiveStorage.start()
 
 $(document).ready(function() {
-  $('#alley_state.select').selectpicker();
+  $('.selectpicker').selectpicker();
 });

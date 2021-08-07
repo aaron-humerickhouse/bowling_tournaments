@@ -3,22 +3,26 @@
 <%= javascript_pack_tag 'tournaments', 'data-turbolinks-track': 'reload' %>
 
 <h1>Tournaments</h1>
-<form id="search-form" class="row g-3">
-  <div class="col-md-4">
-      <%= label_tag('Zip Code', nil, for: 'zip_code', class: 'form-label') %>
-      <%= text_field_tag(:zip_code, nil, class: 'input form-control') %>
+<form id="search-form">
+  <div class="row mb-4">
+    <div class="col-md-4">
+        <%= label_tag('Zip Code', nil, for: 'zip_code', class: 'form-label') %>
+        <%= text_field_tag(:zip_code, nil, class: 'input form-control') %>
+    </div>
+    <div class="col-md-4">
+        <%= label_tag('Search Radius (miles)', nil, for: 'miles', class: 'form-label') %>
+        <%= select_tag(:miles, options_for_select([5,15,25, 50, 100, 250, 1000], 50), class: 'selectpicker form-control') %>
+    </div>
+    <div class="col-md-4">
+        <%= label_tag('Months in Advance', nil, for: 'months', class: 'form-label') %>
+        <%= select_tag(:months, options_for_select((1..12), 3), class: 'selectpicker form-control') %>
+    </div>
   </div>
-  <div class="col-md-4">
-      <%= label_tag('Search Radius (miles)', nil, for: 'miles', class: 'form-label') %>
-      <%= select_tag(:miles, options_for_select([5,15,25, 50, 100, 250, 1000], 50), class: 'select form-select') %>
-  </div>
-  <div class="col-md-4">
-      <%= label_tag('Months in Advance', nil, for: 'months', class: 'form-label') %>
-      <%= select_tag(:months, options_for_select((1..12), 3), class: 'select form-select') %>
-  </div>
-  <div class="col-12" id="search-div">
-    <button id="search" class="btn btn-primary mb-3" type="submit" onclick="submitSearch()">Search</button>
-    <button id="clear" class="btn btn-secondary back mb-3" type="submit" onclick="clearSearch()">Clear</button>
+  <div class="row mb-4">
+    <div class="col-12" id="search-div">
+      <button id="search" class="btn btn-primary" type="submit" onclick="submitSearch()">Search</button>
+      <button id="clear" class="btn btn-secondary back" type="submit" onclick="clearSearch()">Clear</button>
+    </div>
   </div>
 </form>
 

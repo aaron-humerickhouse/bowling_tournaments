@@ -1,18 +1,9 @@
 class UserSettingsController < ApplicationController
-  before_action :set_user_setting, only: %i[ show edit update destroy ]
-
-  # GET /user_settings or /user_settings.json
-  def index
-    @user_settings = UserSetting.all
-  end
+  before_action :authenticate_user!
+  before_action :set_user_setting, only: %i[ show edit update ]
 
   # GET /user_settings/1 or /user_settings/1.json
   def show
-  end
-
-  # GET /user_settings/new
-  def new
-    @user_setting = UserSetting.new
   end
 
   # GET /user_settings/1/edit
@@ -47,23 +38,16 @@ class UserSettingsController < ApplicationController
     end
   end
 
-  # DELETE /user_settings/1 or /user_settings/1.json
-  def destroy
-    @user_setting.destroy
-    respond_to do |format|
-      format.html { redirect_to user_settings_url, notice: "User setting was successfully destroyed." }
-      format.json { head :no_content }
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user_setting
+    @user_setting = current_user.user_setting
+    # UserSetting.find(params[:id])
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user_setting
-      @user_setting = UserSetting.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def user_setting_params
-      params.require(:user_setting).permit(:user_id, :notification_search_radius)
-    end
+  # Only allow a list of trusted parameters through.
+  def user_setting_params
+    params.require(:user_setting).permit(:notification_search_radius, :zip_code, :notification_period)
+  end
 end

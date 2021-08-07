@@ -5,5 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable
 
+  after_create :create_user_setting
   has_one :user_setting
+
+  private
+
 end
