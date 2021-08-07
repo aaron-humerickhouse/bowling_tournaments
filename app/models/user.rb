@@ -5,8 +5,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable
 
-  after_create :create_user_setting
   has_one :user_setting
+
+  accepts_nested_attributes_for :user_setting,
+                                allow_destroy: true,
+                                reject_if: lambda { |attributes|
+                                  attributes['zip_code'].blank? ||
+                                    attributes['notification_search_radius'].blank? ||
+                                    attributes['notification_period'].empty?
+                                }
 
   private
 

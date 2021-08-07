@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class ContactDashboard < Administrate::BaseDashboard
+class HostDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -63,10 +63,10 @@ class ContactDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how contacts are displayed
+  # Overwrite this method to customize how hosts are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(contact)
-  #   "Contact ##{contact.id}"
+  # def display_resource(host)
+  #   "Host ##{host.id}"
   # end
 end

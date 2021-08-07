@@ -4,34 +4,55 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <h3>Account</h3>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="form-row">
+    <%= f.label :email, class: 'form-label' %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
+  <div class="form-row">
+    <%= f.label :password, class: 'form-label' %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="form-row">
+    <%= f.label :password_confirmation, class: 'form-label' %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
   </div>
 
   <h3>Personal</h3>
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
+  <div class="form-row">
+    <%= f.label :first_name, class: 'form-label' %><br />
+    <%= f.text_field :first_name, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
+  <div class="form-row">
+    <%= f.label :last_name, class: 'form-label' %><br />
+    <%= f.text_field :last_name, class: 'form-control' %>
   </div>
+
+  <%= f.fields_for :user_setting_attributes do |settings| %>
+    <div class="form-row">
+      <%= settings.label :zip_code, class: 'form-label' %><br />
+      <%= settings.text_field :zip_code, class: 'form-control' %>
+    </div>
+
+    <div class="form-row">
+      <%= settings.label :notification_search_radius, class: 'form-label' %><br />
+      <%= settings.text_field :notification_search_radius, class: 'form-control' %>
+    </div>
+    <div>
+      <%= settings.label :notification_period, class: 'form-label' %>
+      <% UserSetting::NOTIFICATION_PERIODS.each do |period| %>
+        <div class="form-check"
+          <%= settings.check_box(:notification_period, { :multiple => true, class: 'form-check-input' }, period) %>
+          <%= settings.label period > 0 ? pluralize(period, 'day') : "No Notifications", class: 'form-check-label' %>
+        </div>
+      <% end %>
+      </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit "Sign up" %>

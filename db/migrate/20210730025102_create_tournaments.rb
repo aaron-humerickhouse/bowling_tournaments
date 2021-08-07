@@ -8,7 +8,7 @@ class CreateTournaments < ActiveRecord::Migration[6.1]
       t.string :participants, array: true
       t.string :difficulty
       t.string :flyer_url
-      t.references :contact, null: false, foreign_key: true
+      t.references :host, null: false, foreign_key: true
 
       t.timestamps
     end

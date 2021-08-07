@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :tournaments
-  resources :contacts
+  resources :hosts
 
   get '/settings', to: 'user_settings#show'
   match 'settings/edit' => 'user_settings#edit', via: :get, as: :edit_settings

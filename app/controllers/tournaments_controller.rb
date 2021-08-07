@@ -81,7 +81,7 @@ class TournamentsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def tournament_params
     params.require(:tournament).permit(:name, :alley_id, :starts_at, :flyer_url,
-                                       contact_attributes: %i[name email phone], format: [], participants: [])
+                                       host_attributes: %i[name email phone], format: [], participants: [])
   end
 
   def filter_tournaments_by_distance(tournaments)

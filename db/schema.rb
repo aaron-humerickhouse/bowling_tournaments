@@ -38,13 +38,13 @@ ActiveRecord::Schema.define(version: 2021_07_30_030434) do
     t.index ["name", "address_id"], name: "index_alleys_on_name_and_address_id", unique: true
   end
 
-  create_table "contacts", force: :cascade do |t|
+  create_table "hosts", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["name", "email", "phone"], name: "index_contacts_on_name_and_email_and_phone"
+    t.index ["name", "email", "phone"], name: "index_hosts_on_name_and_email_and_phone"
   end
 
   create_table "tournaments", force: :cascade do |t|
@@ -55,11 +55,11 @@ ActiveRecord::Schema.define(version: 2021_07_30_030434) do
     t.string "participants", array: true
     t.string "difficulty"
     t.string "flyer_url"
-    t.bigint "contact_id", null: false
+    t.bigint "host_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["alley_id"], name: "index_tournaments_on_alley_id"
-    t.index ["contact_id"], name: "index_tournaments_on_contact_id"
+    t.index ["host_id"], name: "index_tournaments_on_host_id"
     t.index ["name", "alley_id", "starts_at"], name: "index_tournaments_on_name_and_alley_id_and_starts_at"
   end
 
@@ -98,6 +98,6 @@ ActiveRecord::Schema.define(version: 2021_07_30_030434) do
 
   add_foreign_key "alleys", "addresses"
   add_foreign_key "tournaments", "alleys"
-  add_foreign_key "tournaments", "contacts"
+  add_foreign_key "tournaments", "hosts"
   add_foreign_key "user_settings", "users"
 end

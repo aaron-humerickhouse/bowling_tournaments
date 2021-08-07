@@ -1,10 +1,10 @@
-<%= form_with(model: contact) do |form| %>
-  <% if contact.errors.any? %>
+<%= form_with(model: host) do |form| %>
+  <% if host.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+      <h2><%= pluralize(host.errors.count, "error") %> prohibited this host from being saved:</h2>
 
       <ul>
-        <% contact.errors.each do |error| %>
+        <% host.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>

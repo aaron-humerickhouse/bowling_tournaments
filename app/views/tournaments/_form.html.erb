@@ -56,22 +56,22 @@
     <%= form.text_field :flyer_url, class: 'form-control' %>
   </div>
 
-  <h2>Contact</h2>
+  <h2>Host</h2>
 
-  <%= form.fields_for :contact_attributes do |contact| %>
+  <%= form.fields_for :host_attributes do |host| %>
     <div class="mb-3">
-      <%= contact.label :name, class: 'form-label' %>
-      <%= contact.text_field :name, class: 'form-control' %>
+      <%= host.label :name, class: 'form-label' %>
+      <%= host.text_field :name, class: 'form-control' %>
     </div>
 
     <div class="mb-3">
-      <%= contact.label :email, class: 'form-label' %>
-      <%= contact.text_field :email, class: 'form-control', type: 'email' %>
+      <%= host.label :email, class: 'form-label' %>
+      <%= host.text_field :email, class: 'form-control', type: 'email' %>
     </div>
 
     <div class="mb-3">
-      <%= contact.label :phone, class: 'form-label' %>
-      <%= contact.text_field :phone, class: 'form-control', type: 'tel' %>
+      <%= host.label :phone, class: 'form-label' %>
+      <%= host.text_field :phone, class: 'form-control', type: 'tel' %>
     </div>
   <% end %>
 
