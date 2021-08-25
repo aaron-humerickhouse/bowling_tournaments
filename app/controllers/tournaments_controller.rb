@@ -81,9 +81,10 @@ class TournamentsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def tournament_params
     params.require(:tournament).permit(:name, :alley_id, :starts_at, :flyer_url,
-                                       host_attributes: %i[name email phone], format: [], participants: [])
+                                       :contact_name, :contact_email, :contact_phone, format: [], participants: [])
   end
 
+  # TODO: Move to tournament service
   def filter_tournaments_by_distance(tournaments)
     zip_code = index_params[:zip_code]
     return tournaments unless zip_code.present?

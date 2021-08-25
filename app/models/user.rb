@@ -15,6 +15,24 @@ class User < ApplicationRecord
                                     attributes['notification_period'].empty?
                                 }
 
+  def notify_for_tournament?(tournament:)
+    return false if user_setting.notification_period.include?(0)
+
+    days_away = tournament.starts_at.beginning_of_day - Date.today.beginning_of_day
+    max_notify_window = user_setting.notification_period.sort.last
+    # TODO: Test interaction between nightly notify and tournament notify
+    return false if max_notify_window <= days_away
+
+    user_zip_code = user_setting.zip_code
+    search_distance = user_setting.notification_search_radius
+
+    tournament_distance = Geocoder::Calculations.distance_between(
+      tournament.alley.address.geolocation, Geocoder.coordinates(user_zip_code)
+    )
+
+    search_distance <= tournament_distance
+  end
+
   private
 
 end

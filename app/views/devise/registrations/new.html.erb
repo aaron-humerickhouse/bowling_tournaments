@@ -39,11 +39,16 @@
       <%= settings.text_field :zip_code, class: 'form-control' %>
     </div>
 
-    <div class="form-row">
-      <%= settings.label :notification_search_radius, class: 'form-label' %><br />
-      <%= settings.text_field :notification_search_radius, class: 'form-control' %>
-    </div>
     <div>
+      <%= settings.label :notification_search_radius, class: 'form-label' %>
+      <% UserSetting::NOTIFICATION_SEARCH_RADIUS.each do |radius| %>
+        <div class="form-check">
+          <%= settings.radio_button(:notification_search_radius, radius, {  class: 'form-check-input' } ) %>
+          <%= settings.label radius > 0 ? pluralize(radius, 'mile') : "No Distance Restriction", class: 'form-check-label' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="mb-4">
       <%= settings.label :notification_period, class: 'form-label' %>
       <% UserSetting::NOTIFICATION_PERIODS.each do |period| %>
         <div class="form-check"
@@ -54,8 +59,8 @@
       </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  <div class="row mb-4">
+    <%= f.submit "Sign up", class: 'btn btn-primary' %>
   </div>
 <% end %>
 

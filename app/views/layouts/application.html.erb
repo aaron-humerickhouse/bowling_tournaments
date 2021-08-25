@@ -7,8 +7,6 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-<!--    <link rel="stylesheet" href="https://unpkg.com/bulmaswatch/litera/bulmaswatch.min.css">-->
-
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -53,9 +51,8 @@
     </div>
   </nav>
 
-  <div class="container-fluid">
-
-    <%= yield %>
+  <div class="container-fluid pl-5 pr-5 mb-4">
+      <%= yield %>
   </div>
   </body>
 </html>

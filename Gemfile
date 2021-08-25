@@ -34,8 +34,15 @@ gem 'google-maps'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'foreman'
+gem 'redis'
+gem 'sidekiq'
+gem 'sidekiq-cron'
+
 group :development, :test do
   gem 'dotenv-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'

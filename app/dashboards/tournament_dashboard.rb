@@ -9,13 +9,15 @@ class TournamentDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     alley: Field::BelongsTo,
-    host: Field::BelongsTo,
+    contact_name: Field::String,
+    contact_phone: Field::String,
+    contact_email: Field::String,
     id: Field::Number,
     name: Field::String,
     starts_at: Field::DateTime,
-    format: Field::String,
+    events: Array[Field::String],
     difficulty: Field::String,
-    participants: Field::String,
+    participants: Array[Field::String],
     flyer_url: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -30,18 +32,19 @@ class TournamentDashboard < Administrate::BaseDashboard
     name
     alley
     starts_at
-    host
+    contact_name
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    alley
-    host
-    id
     name
+    alley
+    contact_name
+    contact_phone
+    contact_email
     starts_at
-    format
+    events
     participants
     difficulty
     flyer_url
@@ -54,10 +57,12 @@ class TournamentDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     alley
-    host
+    contact_name
+    contact_phone
+    contact_email
     name
     starts_at
-    format
+    events
     difficulty
     participants
     flyer_url

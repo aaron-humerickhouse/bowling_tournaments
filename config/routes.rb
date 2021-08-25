@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   resources :tournaments
-  resources :hosts
 
   get '/settings', to: 'user_settings#show'
   match 'settings/edit' => 'user_settings#edit', via: :get, as: :edit_settings
@@ -12,9 +13,12 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   namespace :admin do
-    resources :alleys
     resources :addresses
+    resources :alleys
+    resources :tournaments
+    resources :user_settings
     resources :users
+    mount Sidekiq::Web => '/sidekiq'
 
     root to: 'alleys#index'
   end

@@ -1,0 +1,9 @@
+<p>Hello, <%= @user.email %>!</p>
+
+<p>This is an email to remind you about an upcoming tournament:</p>
+
+<p>
+  <%= link_to @tournament.name, tournament_url(@tournament) %>
+  <br />
+  Date: <%= @tournament.starts_at %>
+</p>

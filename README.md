@@ -7,8 +7,13 @@ Things you may want to cover:
 
 * Ruby version
 
-* System dependencies
-
+* System dependencies 
+  * sidekiq
+  * mailhog
+    * brew install mailhog
+  * redis
+    * brew install redis
+  
 * Configuration
 
 * Database creation
