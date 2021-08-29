@@ -10,6 +10,7 @@ class UserSettingDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     user: Field::BelongsTo,
     id: Field::Number,
+    zip_code: Field::String,
     notification_search_radius: Field::Number,
     notification_period: Field::Number,
     created_at: Field::DateTime,
@@ -24,6 +25,7 @@ class UserSettingDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     user
     id
+    zip_code
     notification_search_radius
     notification_period
   ].freeze
@@ -33,6 +35,7 @@ class UserSettingDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     user
     id
+    zip_code
     notification_search_radius
     notification_period
     created_at
@@ -44,6 +47,7 @@ class UserSettingDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     user
+    zip_code
     notification_search_radius
     notification_period
   ].freeze

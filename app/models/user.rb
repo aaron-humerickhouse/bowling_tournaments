@@ -33,6 +33,7 @@ class User < ApplicationRecord
     search_distance <= tournament_distance
   end
 
-  private
-
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

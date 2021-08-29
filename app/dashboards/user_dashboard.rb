@@ -15,7 +15,6 @@ class UserDashboard < Administrate::BaseDashboard
     password_confirmation: Field::String,
     first_name: Field::String,
     last_name: Field::String,
-    zip_code: Field::String,
     reset_password_sent_at: Field::DateTime,
     confirmed_at: Field::DateTime,
     confirmation_sent_at: Field::DateTime,
@@ -34,7 +33,6 @@ class UserDashboard < Administrate::BaseDashboard
     email
     first_name
     last_name
-    zip_code
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -45,7 +43,6 @@ class UserDashboard < Administrate::BaseDashboard
     unconfirmed_email
     first_name
     last_name
-    zip_code
     reset_password_sent_at
     confirmed_at
     confirmation_sent_at
@@ -63,7 +60,6 @@ class UserDashboard < Administrate::BaseDashboard
     email
     password
     password_confirmation
-    zip_code
   ].freeze
 
   # COLLECTION_FILTERS
@@ -81,7 +77,7 @@ class UserDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(user)
-  #   "User ##{user.id}"
-  # end
+  def display_resource(user)
+    user.full_name
+  end
 end
