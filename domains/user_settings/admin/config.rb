@@ -4,13 +4,6 @@ RailsAdmin.config do |config|
     field :user do
       required true
       read_only true
-      pretty_value do
-        v = bindings[:view]
-        user_setting = bindings[:object]
-        user = user_setting.user
-        value = user.full_name
-        v.link_to(value, "/admin/user/#{user.id}")
-      end
     end
     field :zip_code do
       required true

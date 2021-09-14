@@ -21,6 +21,14 @@ a.btn.back:hover, a.btn.back:focus, a.btn.back {
   color: white !important;
 }
 
+a.btn:hover, a.btn:focus, a.btn {
+  color: white !important;
+}
+
+body {
+  padding-top: 66px;
+}
+
 .bootstrap-select button.dropdown-toggle {
   border-color: $custom-select-border-color !important;
   border-width: $custom-select-border-width !important;

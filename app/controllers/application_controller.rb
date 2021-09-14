@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(_resource)
-    tournaments_path
+    root_path
   end
 
   def after_confirmation_path_for(_resource_name, resource)

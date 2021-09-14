@@ -1,2 +1,14 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="jumbotron">
+  <h1 class="display-5">Welcome to Bowling Tournament Registry!</h1>
+  <p>
+    Tired of sifting through all the noise in Facebook to find a tournament?
+    Do you want to be notified of tournaments? This is your one stop place for tournament information.
+  </p>
+  <hr class="my-4">
+  <% if user_signed_in? %>
+    <p>Search for <%= link_to 'tournaments', tournaments_path %></p>
+    <% else %>
+  <p>You don't have to sign up to search for tournaments. In order to be notified about tournaments in your area, please sign up.</p>
+    <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary' %>
+  <% end %>
+</div>
