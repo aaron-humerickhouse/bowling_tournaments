@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_25_030833) do
+ActiveRecord::Schema.define(version: 2021_09_14_032509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,9 @@ ActiveRecord::Schema.define(version: 2021_08_25_030833) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["alley_id"], name: "index_tournaments_on_alley_id"
+    t.index ["events"], name: "index_tournaments_on_events", using: :gin
     t.index ["name", "alley_id", "starts_at"], name: "index_tournaments_on_name_and_alley_id_and_starts_at"
+    t.index ["participants"], name: "index_tournaments_on_participants", using: :gin
   end
 
   create_table "user_settings", force: :cascade do |t|

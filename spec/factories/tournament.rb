@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory(:tournament) do
     alley
-    difficulty { ::Tournament::DIFFICULTY.sample }
+    difficulty { ::Tournament::DIFFICULTY_OPTIONS.sample }
     flyer_url { Faker::Internet.url }
     events { [Tournament::EVENT_OPTIONS.sample] }
     name { Faker::Music.album }
@@ -10,5 +10,7 @@ FactoryBot.define do
     contact_name { Faker::Name.name }
     contact_email { Faker::Internet.safe_email }
     contact_phone { Faker::PhoneNumber.phone_number }
+
+    after(:build) { |user| user.class.skip_callback(:create, :after, :notify_new_tournament) }
   end
 end

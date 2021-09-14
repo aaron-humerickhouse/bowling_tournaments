@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TournamentsController < ApplicationController
+  before_action :authenticate_user!, only: %i[edit update new create]
+
   DEFAULT_MONTHS_IN_ADVANCE = 6
   DEFAULT_MILES = 50
 

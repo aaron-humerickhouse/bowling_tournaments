@@ -4,12 +4,12 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <h3>Account</h3>
-  <div class="form-row">
+  <div class="form-group">
     <%= f.label :email, class: 'form-label' %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
   </div>
 
-  <div class="form-row">
+  <div class="form-group">
     <%= f.label :password, class: 'form-label' %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -17,29 +17,29 @@
     <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
   </div>
 
-  <div class="form-row">
+  <div class="form-group">
     <%= f.label :password_confirmation, class: 'form-label' %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
   </div>
-
+  <br />
   <h3>Personal</h3>
-  <div class="form-row">
+  <div class="form-group">
     <%= f.label :first_name, class: 'form-label' %><br />
     <%= f.text_field :first_name, class: 'form-control' %>
   </div>
 
-  <div class="form-row">
+  <div class="form-group">
     <%= f.label :last_name, class: 'form-label' %><br />
     <%= f.text_field :last_name, class: 'form-control' %>
   </div>
 
   <%= f.fields_for :user_setting_attributes do |settings| %>
-    <div class="form-row">
+    <div class="form-group">
       <%= settings.label :zip_code, class: 'form-label' %><br />
       <%= settings.text_field :zip_code, class: 'form-control' %>
     </div>
-
-    <div>
+    <br />
+    <div class="form-group">
       <%= settings.label :notification_search_radius, class: 'form-label' %>
       <% UserSetting::NOTIFICATION_SEARCH_RADIUS.each do |radius| %>
         <div class="form-check">
@@ -48,7 +48,7 @@
         </div>
       <% end %>
     </div>
-    <div class="mb-4">
+    <div class="mb-4 form-group">
       <%= settings.label :notification_period, class: 'form-label' %>
       <% UserSetting::NOTIFICATION_PERIODS.each do |period| %>
         <div class="form-check"
@@ -59,7 +59,7 @@
       </div>
   <% end %>
 
-  <div class="row mb-4">
+  <div class="actions">
     <%= f.submit "Sign up", class: 'btn btn-primary' %>
   </div>
 <% end %>

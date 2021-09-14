@@ -1,10 +1,10 @@
 class Tournament < ApplicationRecord
-  enum difficulty: { HOUSE: 'HOUSE', CHALLENGE: 'CHALLENGE', SPORT: 'SPORT' }
-  enum participants: { MENS: 'MENS', WOMENS: 'WOMENS', MIXED: 'MIXED', YOUTH: 'YOUTH' }
-  enum events: {
-    SINGLES: 'SINGLES', DOUBLES: 'DOUBLES', TEAM: 'TEAM',
-    DUTCH: 'DUTCH', BAKER: 'BAKER', OTHER: 'OTHER'
-  }
+  # enum difficulty: { HOUSE: 'HOUSE', CHALLENGE: 'CHALLENGE', SPORT: 'SPORT' }
+  # enum participants: { MENS: 'MENS', WOMENS: 'WOMENS', MIXED: 'MIXED', YOUTH: 'YOUTH' }
+  # enum events: {
+  #   SINGLES: 'SINGLES', DOUBLES: 'DOUBLES', TEAM: 'TEAM',
+  #   DUTCH: 'DUTCH', BAKER: 'BAKER', OTHER: 'OTHER'
+  # }
 
   belongs_to :alley
 
@@ -12,7 +12,19 @@ class Tournament < ApplicationRecord
 
   EVENT_OPTIONS = %i[SINGLES DOUBLES TEAM DUTCH BAKER OTHER].freeze
   PARTICIPANTS_OPTIONS = %i[MENS WOMENS MIXED YOUTH].freeze
-  DIFFICULTY = %i[HOUSE CHALLENGE SPORT].freeze
+  DIFFICULTY_OPTIONS = %i[HOUSE CHALLENGE SPORT].freeze
+
+  def events_enum
+    EVENT_OPTIONS
+  end
+
+  def participants_enum
+    PARTICIPANTS_OPTIONS
+  end
+
+  def difficulty_enum
+    DIFFICULTY_OPTIONS
+  end
 
   private
 

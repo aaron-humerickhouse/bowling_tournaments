@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :name, class: 'form-label' %>
     <%= form.text_field :name, class: 'form-control' %>
   </div>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :alley_id, class: 'form-label' %>
     <%= form.select(:alley_id,
                     options_for_select(@alleys.map{|a| ["#{a.name} - #{a.address.city}, #{a.address.state}", a.id]}),
@@ -24,16 +24,18 @@
                     {class: 'form-control selectpicker', prompt: 'Select One', 'data-live-search': "true"}
         )
     %>
-    <small id="emailHelp" class="form-text text-primary"><%= link_to 'Alley not found?', new_alley_path %></small>
+    <small id="emailHelp" class="form-text text-primary"><%= link_to 'Alley not found? New Alley', new_alley_path %></small>
   </div>
-  <div class="mb-3 form-row">
+  <div class="form-group">
     <%= form.label :starts_at, class: 'form-label' %>
     <%= form.datetime_select :starts_at, {}, class: 'form-control' %>
   </div>
 
-  <div class="mb-3">
+  <h1>TODO ADD DIFFICULTY</h1>
+
+  <div class="form-group">
     <%= form.label :format, class: 'form-label' %>
-    <% Tournament::FORMAT_OPTIONS.each do |option| %>
+    <% Tournament::EVENT_OPTIONS.each do |option| %>
       <div class="form-check"
       <%= form.check_box(:format, { :multiple => true, class: 'form-check-input' }, option) %>
       <%= form.label option.capitalize, class: 'form-check-label' %>
@@ -41,7 +43,7 @@
     <% end %>
   </div>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :participants, class: 'form-label' %>
     <% Tournament::PARTICIPANTS_OPTIONS.each do |participants| %>
       <div class="form-check"
@@ -51,29 +53,29 @@
     <% end %>
   </div>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :flyer_url, class: 'form-label' %>
     <%= form.text_field :flyer_url, class: 'form-control' %>
   </div>
 
   <h2>Contact Info</h2>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :contact_name, class: 'form-label' %>
     <%= form.text_field :contact_name, class: 'form-control' %>
   </div>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :contact_email, class: 'form-label' %>
     <%= form.text_field :contact_email, class: 'form-control', type: 'email' %>
   </div>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :contact_phone, class: 'form-label' %>
     <%= form.text_field :contact_phone, class: 'form-control', type: 'tel' %>
   </div>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.submit class: 'btn btn-primary' %>
     <%= link_to 'Back', :back, class: 'btn btn-secondary back' %>
   </div>
