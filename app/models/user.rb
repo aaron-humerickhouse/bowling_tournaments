@@ -16,7 +16,7 @@ class User < ApplicationRecord
                                 }
 
   def notify_for_tournament?(tournament:)
-    return false if user_setting.notification_period.include?(0)
+    return false if self.user_setting.notification_period.include?(0)
 
     days_away = tournament.starts_at.beginning_of_day - Date.today.beginning_of_day
     max_notify_window = user_setting.notification_period.sort.last

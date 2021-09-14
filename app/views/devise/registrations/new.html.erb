@@ -43,8 +43,8 @@
       <%= settings.label :notification_search_radius, class: 'form-label' %>
       <% UserSetting::NOTIFICATION_SEARCH_RADIUS.each do |radius| %>
         <div class="form-check">
-          <%= settings.radio_button(:notification_search_radius, radius, {  class: 'form-check-input' } ) %>
-          <%= settings.label radius > 0 ? pluralize(radius, 'mile') : "No Distance Restriction", class: 'form-check-label' %>
+          <%= settings.radio_button(:notification_search_radius, radius, { id: "radius-#{radius}", class: 'form-radio-input' } ) %>
+          <%= settings.label radius > 0 ? pluralize(radius, 'mile') : "No Distance Restriction", for: "radius-#{radius}", class: 'form-radio-label' %>
         </div>
       <% end %>
     </div>
@@ -52,8 +52,8 @@
       <%= settings.label :notification_period, class: 'form-label' %>
       <% UserSetting::NOTIFICATION_PERIODS.each do |period| %>
         <div class="form-check"
-          <%= settings.check_box(:notification_period, { :multiple => true, class: 'form-check-input' }, period) %>
-          <%= settings.label period > 0 ? pluralize(period, 'day') : "No Notifications", class: 'form-check-label' %>
+          <%= settings.check_box(:notification_period, { id: "period-#{period}", :multiple => true, class: 'form-check-input' }, period) %>
+          <%= settings.label period > 0 ? pluralize(period, 'day') : "No Notifications", for: "period-#{period}", class: 'form-check-label' %>
         </div>
       <% end %>
       </div>

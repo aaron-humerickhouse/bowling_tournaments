@@ -24,31 +24,39 @@
                     {class: 'form-control selectpicker', prompt: 'Select One', 'data-live-search': "true"}
         )
     %>
-    <small id="emailHelp" class="form-text text-primary"><%= link_to 'Alley not found? New Alley', new_alley_path %></small>
+    <small id="emailHelp" class="form-text text-primary"><%= link_to 'Alley not found? Add new Alley', new_alley_path %></small>
   </div>
   <div class="form-group">
     <%= form.label :starts_at, class: 'form-label' %>
     <%= form.datetime_select :starts_at, {}, class: 'form-control' %>
   </div>
 
-  <h1>TODO ADD DIFFICULTY</h1>
+  <div class="form-group">
+    <%= form.label :difficulty, class: 'form-label' %>
+    <% Tournament::DIFFICULTY_OPTIONS.each do |option| %>
+      <div class="form-radio">
+        <%= form.radio_button(:difficulty, option, { id: option, class: 'form-radio-input' } ) %>
+        <%= form.label option.capitalize, for: option, class: 'form-radio-label' %>
+      </div>
+    <% end %>
+  </div>
 
   <div class="form-group">
-    <%= form.label :format, class: 'form-label' %>
+    <%= form.label :events, class: 'form-label' %>
     <% Tournament::EVENT_OPTIONS.each do |option| %>
       <div class="form-check"
-      <%= form.check_box(:format, { :multiple => true, class: 'form-check-input' }, option) %>
-      <%= form.label option.capitalize, class: 'form-check-label' %>
+      <%= form.check_box(:events, { id: option, :multiple => true, class: 'form-check-input', checked: tournament&.events&.include?(option.to_s) }, option) %>
+      <%= form.label option.capitalize, for: option, class: 'form-check-label' %>
       </div>
     <% end %>
   </div>
 
   <div class="form-group">
     <%= form.label :participants, class: 'form-label' %>
-    <% Tournament::PARTICIPANTS_OPTIONS.each do |participants| %>
+    <% Tournament::PARTICIPANTS_OPTIONS.each do |participant_option| %>
       <div class="form-check"
-        <%= form.check_box(:participants, { :multiple => true, class: 'form-check-input' }, participants) %>
-        <%= form.label participants.capitalize, class: 'form-check-label' %>
+        <%= form.check_box(:participants, { id: participant_option, :multiple => true, class: 'form-check-input', checked: tournament&.participants&.include?(participant_option.to_s) }, participant_option) %>
+        <%= form.label participant_option.capitalize, for: participant_option, class: 'form-check-label' %>
       </div>
     <% end %>
   </div>
