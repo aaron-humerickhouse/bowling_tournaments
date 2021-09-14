@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2021_08_25_030833) do
   create_table "user_settings", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.integer "notification_search_radius", null: false
-    t.integer "notification_period", null: false, array: true
+    t.integer "notification_period", default: [0], null: false, array: true
     t.string "zip_code", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
