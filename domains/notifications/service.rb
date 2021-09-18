@@ -16,12 +16,15 @@ module Notifications
 
     # Notify when a tournament is created if it's within the notifiable period
     def tournament_notify(id:)
+      puts 'In tournament_notify'
       tournament = Tournament.find(id)
       # TODO: Can we use a sql query to prevent searching over all users
       User.all.each do |user|
+        puts "Checking user #{user.id} if notifiable"
         next unless user.notify_for_tournament?(tournament: tournament)
-
-        Notifications::Mailer.tournament_notify(user: user, tournament: tournament).deliver_now
+        puts "User #{user.id} is notifiable"
+        puts "Setting up mail to user #{user.id} about tournament #{tournament.name}"
+        Notifications::TournamentNotifyJob.perform_in(1.minute, user.id, tournament.id)
       end
     end
 

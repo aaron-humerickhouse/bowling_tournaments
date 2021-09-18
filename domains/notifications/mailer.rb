@@ -7,5 +7,11 @@ module Notifications
       @tournament = tournament
       mail(to: @user.email, subject: 'Tournament Reminder')
     end
+
+    def tournament_notify(user:, tournament:)
+      @user = user
+      @tournament = tournament
+      mail(to: @user.email, subject: 'Nearby Tournament Added')
+    end
   end
 end

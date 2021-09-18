@@ -18,6 +18,3 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-$(document).ready(function() {
-  $('.selectpicker').selectpicker();
-});

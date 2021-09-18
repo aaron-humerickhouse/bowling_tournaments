@@ -16,7 +16,7 @@ class UserSettingsController < ApplicationController
 
     respond_to do |format|
       if @user_setting.save
-        format.html { redirect_to @user_setting, notice: "User setting was successfully created." }
+        format.html { redirect_to settings_path(@user_setting), notice: "User setting was successfully created." }
         format.json { render :show, status: :created, location: @user_setting }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -29,7 +29,7 @@ class UserSettingsController < ApplicationController
   def update
     respond_to do |format|
       if @user_setting.update(user_setting_params)
-        format.html { redirect_to @user_setting, notice: "User setting was successfully updated." }
+        format.html { redirect_to settings_path(@user_setting), notice: "User setting was successfully updated." }
         format.json { render :show, status: :ok, location: @user_setting }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -48,6 +48,6 @@ class UserSettingsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_setting_params
-    params.require(:user_setting).permit(:notification_search_radius, :zip_code, :notification_period)
+    params.require(:user_setting).permit(:notification_search_radius, :zip_code, notification_period: [])
   end
 end

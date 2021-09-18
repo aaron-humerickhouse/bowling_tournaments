@@ -73,7 +73,7 @@ class TournamentsController < ApplicationController
   end
 
   def get_alleys
-    @alleys = Alley.order(:name)
+    @alleys = Alley.joins(:address).select('alleys.id, alleys.name, addresses.city, addresses.state').order(:name)
   end
 
   def index_params
