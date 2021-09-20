@@ -1,3 +1,3 @@
 $(document).ready(function() {
-  $(".selectpicker").selectpicker("refresh");
+  $('#alley-state').selectpicker();
 });

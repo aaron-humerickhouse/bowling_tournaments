@@ -13,26 +13,26 @@
     </div>
   <% end %>
 
-  <div class="mb-3">
+  <div class="form-group">
     <%= form.label :name, class: 'form-label' %>
     <%= form.text_field :name, class: 'form-control' %>
   </div>
 
   <h4 class="subtitle is-4">Address</h4>
   <%= form.fields_for :address_attributes do |address| %>
-    <div class="mb-3">
+    <div class="form-group">
       <%= address.label :street_address, class: 'form-label' %>
       <%= address.text_field :street_address, class: 'form-control' %>
     </div>
-    <div class="mb-3">
+    <div class="form-group">
       <%= address.label :secondary_address, class: 'form-label' %>
       <%= address.text_field :secondary_address, class: 'form-control' %>
     </div>
-    <div class="mb-3">
+    <div class="form-group">
       <%= address.label :city, class: 'form-label' %>
       <%= address.text_field :city, class: 'form-control' %>
     </div>
-    <div class="mb-3">
+    <div class="form-group">
       <%= form.label :state, class: 'form-label' %>
       <%= form.select(:state,
                       options_for_select(states_option),
@@ -42,13 +42,14 @@
       %>
     </div>
 
-    <div class="mb-3">
+    <div class="form-group">
       <%= address.label :zip_code, class: 'form-label' %>
       <%= address.text_field :zip_code, class: 'form-control' %>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= form.submit class: "button is-primary" %>
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to 'Back', :back, class: 'btn btn-secondary back' %>
   </div>
 <% end %>

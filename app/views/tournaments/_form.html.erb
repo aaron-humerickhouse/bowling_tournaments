@@ -28,9 +28,16 @@
     %>
     <small id="emailHelp" class="form-text text-primary"><%= link_to 'Alley not found? Add new Alley', new_alley_path %></small>
   </div>
+
   <div class="form-group">
-    <%= form.label :starts_at, class: 'form-label' %>
-    <%= form.datetime_select :starts_at, {}, class: 'form-control' %>
+    <div class="form-label">Date</div>
+    <%= form.text_field :start_date, type: 'date', class: 'form-control', min: Date.today %>
+
+  </div>
+
+  <div class="form-group">
+    <div class="form-label">Start Time</div>
+    <%= form.text_field :start_time, type: 'time', class: 'form-control' %>
   </div>
 
   <div class="form-group">
@@ -85,7 +92,7 @@
     <%= form.text_field :contact_phone, class: 'form-control', type: 'tel', value: tournament&.contact_phone || current_user.phone_number %>
   </div>
 
-  <div class="form-group">
+  <div class="form-actions">
     <%= form.submit class: 'btn btn-primary' %>
     <%= link_to 'Back', :back, class: 'btn btn-secondary back' %>
   </div>

@@ -30,7 +30,13 @@ class TournamentsController < ApplicationController
 
   # POST /tournaments or /tournaments.json
   def create
-    @tournament = Tournament.new(tournament_params)
+    attributes = tournament_params.to_h.except!('start_date', 'start_time')
+    date = tournament_params['start_date']
+    time = tournament_params['start_time']
+    event_datetime = DateTime.parse("#{date} #{time}")
+
+    attributes['starts_at'] = event_datetime.to_s
+    @tournament = Tournament.new(attributes)
 
     respond_to do |format|
       if @tournament.save
@@ -83,7 +89,7 @@ class TournamentsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def tournament_params
     params.require(:tournament).permit(
-      :name, :alley_id, :starts_at, :flyer_url, :contact_name, :contact_email,
+      :name, :alley_id, :start_date, :start_time, :flyer_url, :contact_name, :contact_email,
       :contact_phone, :difficulty, events: [], participants: []
     )
   end

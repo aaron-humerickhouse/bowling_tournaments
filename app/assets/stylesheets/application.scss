@@ -14,8 +14,19 @@
  //*= require_self
  */
 
-@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+$gray-lighter: $gray-100 !default;
+$gray-light: $gray-300 !default;
+$btn-primary-bg: $primary !default;
+
 @import "../../../node_modules/bootstrap-select/sass/bootstrap-select";
+@import "../../../node_modules/bootstrap-icons/font/bootstrap-icons";
+
+@font-face {
+  font-family: "bootstrap-icons";
+  src: font-url("bootstrap-icons/font/fonts/bootstrap-icons.woff2") format("woff2"),
+  font-url("bootstrap-icons/font/fonts/bootstrap-icons.woff") format("woff");
+}
 
 a.btn.back:hover, a.btn.back:focus, a.btn.back {
   color: white !important;
@@ -28,6 +39,8 @@ a.btn:hover, a.btn:focus, a.btn {
 body {
   padding-top: 66px;
 }
+
+.input-group-append { cursor: pointer; }
 
 .bootstrap-select button.dropdown-toggle {
   border-color: $custom-select-border-color !important;
