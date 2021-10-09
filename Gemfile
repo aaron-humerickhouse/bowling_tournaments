@@ -62,6 +62,7 @@ group :development do
   gem 'spring'
   gem 'bundler-audit'
   gem 'brakeman'
+  gem 'rspec_junit_formatter'
 end
 
 group :test do

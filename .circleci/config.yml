@@ -1,0 +1,80 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/2.0/orb-intro/
+orbs:
+  ruby: circleci/ruby@volatile
+  node: circleci/node@volatile
+
+executors:
+  default:
+    docker:
+      - image: cimg/ruby:3.0.2-node-browsers
+      - image: cimg/postgres:13.2
+        auth:
+          username: timberings
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+        environment:
+          POSTGRES_USER: postgres
+
+commands:
+  bundler-audit:
+    steps:
+      - run:
+          name: 'Bundler Audit'
+          command: bundler-audit
+  rubocop:
+    steps:
+      - run:
+          name: Rubocop
+          command: rubocop
+  brakeman:
+    steps:
+      - run:
+          name: Brakeman
+          command: brakeman
+  rspec:
+    steps:
+      - run:
+          name: Rspec
+          command: rspec --format progress --format RspecJunitFormatter --out rspec.xml
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  static-analysis:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          cache-version: v1
+          pkg-manager: yarn
+      - bundler-audit
+      - rubocop
+      - brakeman
+
+  rspec:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          cache-version: v1
+          pkg-manager: yarn
+      - rspec
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  default: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
+    jobs:
+      - static-analysis
+      - rspec
