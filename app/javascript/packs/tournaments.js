@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  $('#tournament-miles').selectpicker();
+  $('#tournament-months').selectpicker();
+
   const params = new URLSearchParams(window.location.search);
 
   const zip_code = params.get("zip_code");

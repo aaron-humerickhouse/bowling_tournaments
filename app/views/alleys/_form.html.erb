@@ -37,7 +37,12 @@
       <%= form.select(:state,
                       options_for_select(states_option),
                       { },
-                      {class: 'form-control selectpicker', prompt: 'Select State', 'data-live-search': "true"}
+                      {
+                        id: 'alley-state',
+                        class: 'form-control selectpicker',
+                        prompt: 'Select State',
+                        'data-live-search': "true"
+                      }
           )
       %>
     </div>

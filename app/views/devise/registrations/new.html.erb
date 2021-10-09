@@ -38,30 +38,31 @@
       <%= settings.label :zip_code, class: 'form-label' %><br />
       <%= settings.text_field :zip_code, class: 'form-control' %>
     </div>
-    <br />
     <div class="form-group">
       <%= settings.label :notification_search_radius, class: 'form-label' %>
+      <br />
       <% UserSetting::NOTIFICATION_SEARCH_RADIUS.each do |radius| %>
-        <div class="form-check">
-          <%= settings.radio_button(:notification_search_radius, radius, { id: "radius-#{radius}", class: 'form-radio-input' } ) %>
-          <%= settings.label radius > 0 ? pluralize(radius, 'mile') : "No Distance Restriction", for: "radius-#{radius}", class: 'form-radio-label' %>
+        <div class="form-check form-check-inline">
+          <%= settings.radio_button(:notification_search_radius, radius, { id: "radius-#{radius}", class: 'form-check-input' } ) %>
+          <%= settings.label radius > 0 ? pluralize(radius, 'mile') : "No Distance Restriction", for: "radius-#{radius}", class: 'form-check-label' %>
         </div>
       <% end %>
     </div>
     <div class="form-group">
       <%= settings.label :notification_period, class: 'form-label' %>
+      <br />
       <% UserSetting::NOTIFICATION_PERIODS.each do |period| %>
-        <div class="form-check"
+        <div class="form-check form-check-inline"
           <%= settings.check_box(:notification_period, { id: "period-#{period}", :multiple => true, class: 'form-check-input' }, period) %>
           <%= settings.label period > 0 ? pluralize(period, 'day') : "No Notifications", for: "period-#{period}", class: 'form-check-label' %>
         </div>
       <% end %>
       </div>
   <% end %>
-  <br />
   <div class="actions">
     <%= f.submit "Sign up", class: 'btn btn-primary' %>
   </div>
 <% end %>
 
+<br />
 <%= render "devise/shared/links" %>

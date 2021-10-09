@@ -22,11 +22,19 @@
     </div>
     <div class="col-md-4 form-group">
         <%= label_tag('Search Radius (miles)', nil, for: 'miles', class: 'form-label') %>
-        <%= select_tag(:miles, options_for_select([5,15,25, 50, 100, 250, 1000], 50), class: 'selectpicker form-control') %>
+        <%= select_tag(
+              :miles,
+              options_for_select(UserSetting::NOTIFICATION_SEARCH_RADIUS, 50),
+              { class: 'selectpicker form-control', id: 'tournament-miles' }
+            )%>
     </div>
     <div class="col-md-4 form-group">
         <%= label_tag('Months in Advance', nil, for: 'months', class: 'form-label') %>
-        <%= select_tag(:months, options_for_select((1..12), 3), class: 'selectpicker form-control') %>
+        <%= select_tag(
+              :months,
+              options_for_select((1..12), 3),
+              { class: 'selectpicker form-control', id: 'tournament-months'}
+            ) %>
     </div>
   </div>
   <div class="row">
