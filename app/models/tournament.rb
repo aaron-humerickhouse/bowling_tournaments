@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tournament < ApplicationRecord
   # enum difficulty: { HOUSE: 'HOUSE', CHALLENGE: 'CHALLENGE', SPORT: 'SPORT' }
   # enum participants: { MENS: 'MENS', WOMENS: 'WOMENS', MIXED: 'MIXED', YOUTH: 'YOUTH' }

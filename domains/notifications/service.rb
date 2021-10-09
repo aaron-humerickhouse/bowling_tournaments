@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Notifications
   class Service
     # Scan for tournaments that fall within the notifiable window
@@ -22,6 +24,7 @@ module Notifications
       User.all.each do |user|
         puts "Checking user #{user.id} if notifiable"
         next unless user.notify_for_tournament?(tournament: tournament)
+
         puts "User #{user.id} is notifiable"
         puts "Setting up mail to user #{user.id} about tournament #{tournament.name}"
         Notifications::TournamentNotifyJob.perform_in(1.minute, user.id, tournament.id)

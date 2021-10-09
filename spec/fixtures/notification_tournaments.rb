@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.create(:user_setting, notification_period: [60, 7])
 FactoryBot.create(:user_setting, notification_period: [0])
 

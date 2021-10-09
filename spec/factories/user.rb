@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory(:user) do
     confirmation_sent_at { 1.day.ago }

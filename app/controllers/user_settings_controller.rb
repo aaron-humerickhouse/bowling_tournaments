@@ -1,14 +1,14 @@
+# frozen_string_literal: true
+
 class UserSettingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user_setting, only: %i[ show edit update ]
+  before_action :set_user_setting, only: %i[show edit update]
 
   # GET /user_settings/1 or /user_settings/1.json
-  def show
-  end
+  def show; end
 
   # GET /user_settings/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /user_settings or /user_settings.json
   def create
@@ -16,7 +16,7 @@ class UserSettingsController < ApplicationController
 
     respond_to do |format|
       if @user_setting.save
-        format.html { redirect_to settings_path(@user_setting), notice: "User setting was successfully created." }
+        format.html { redirect_to settings_path(@user_setting), notice: 'User setting was successfully created.' }
         format.json { render :show, status: :created, location: @user_setting }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -29,7 +29,7 @@ class UserSettingsController < ApplicationController
   def update
     respond_to do |format|
       if @user_setting.update(user_setting_params)
-        format.html { redirect_to settings_path(@user_setting), notice: "User setting was successfully updated." }
+        format.html { redirect_to settings_path(@user_setting), notice: 'User setting was successfully updated.' }
         format.json { render :show, status: :ok, location: @user_setting }
       else
         format.html { render :edit, status: :unprocessable_entity }

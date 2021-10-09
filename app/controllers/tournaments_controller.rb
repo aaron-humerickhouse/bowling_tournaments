@@ -101,13 +101,13 @@ class TournamentsController < ApplicationController
 
     miles = index_params[:miles]&.to_i || DEFAULT_MILES
 
-    tournaments.find_all { |tournament|
+    tournaments.find_all do |tournament|
       alley_address = tournament.alley.address
       distance = Geocoder::Calculations.distance_between(
         alley_address.geolocation, Geocoder.coordinates(zip_code)
       )
       distance <= miles
-    }
+    end
   end
 
   def fetch_tournaments_by_date_range
@@ -122,14 +122,13 @@ class TournamentsController < ApplicationController
 
     return if request.query_parameters.any?
 
-
     redirect_to(
       controller: :tournaments,
       action: :index,
       tournaments: @tournaments || [],
       zip_code: current_user.user_setting.zip_code,
       miles: current_user.user_setting.notification_search_radius,
-      months: current_user.user_setting.notification_period.sort.last.days.in_months.ceil
+      months: current_user.user_setting.notification_period.max.days.in_months.ceil
     )
   end
 end

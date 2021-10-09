@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RailsAdmin.config do |config|
   # Skipping new in config/initializers/rails_admin
   config.model 'UserSetting' do

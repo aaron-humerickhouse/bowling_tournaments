@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Notifications
   class Mailer < ActionMailer::Base
     default from: 'from@example.com'

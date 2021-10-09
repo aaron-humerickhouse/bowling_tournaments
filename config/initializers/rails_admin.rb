@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RailsAdmin.config do |config|
   require 'rails_admin/rails_admin_pg_arrays'
 

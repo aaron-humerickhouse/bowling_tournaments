@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddIndexToArrayTournament < ActiveRecord::Migration[6.1]
   def change
     add_index :tournaments, :events, using: 'gin'
