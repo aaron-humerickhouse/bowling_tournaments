@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-::States = {
+::STATES = {
   AK: 'Alaska',
   AL: 'Alabama',
   AR: 'Arkansas',

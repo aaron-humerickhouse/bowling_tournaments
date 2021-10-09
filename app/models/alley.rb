@@ -14,6 +14,6 @@ class Alley < ApplicationRecord
                                 }
 
   def readable
-    "#{name} - #{address.city}, #{::States[address.state.to_sym]}"
+    "#{name} - #{address.city}, #{::STATES[address.state.to_sym]}"
   end
 end

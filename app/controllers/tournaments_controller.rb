@@ -7,7 +7,7 @@ class TournamentsController < ApplicationController
   DEFAULT_MILES = 50
 
   before_action :set_tournament, only: %i[show edit update destroy]
-  before_action :get_alleys, only: %i[new edit]
+  before_action :alleys, only: %i[new edit]
 
   # GET /tournaments or /tournaments.json
   def index
@@ -78,8 +78,8 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
   end
 
-  def get_alleys
-    @alleys = Alley.joins(:address).select('alleys.id, alleys.name, addresses.city, addresses.state').order(:name)
+  def alleys
+    @alleys ||= Alley.joins(:address).select('alleys.id, alleys.name, addresses.city, addresses.state').order(:name)
   end
 
   def index_params

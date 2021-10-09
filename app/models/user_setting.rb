@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class UserSetting < ApplicationRecord
-  # enum notification_period: {'0': 0, '1': 1, '2': 2, '3': 3, '7': 7, '14': 14, '30': 30, '60': 60, '90': 90}, _suffix: true
-  # enum notification_search_radius: {'0': 0, '5': 5, '15': 15, '25': 25, '50': 50, '100': 100, '250': 250, '1000': 1000}
-
   belongs_to :user
 
   before_save :compact_periods

@@ -4,6 +4,6 @@ require 'states_helper'
 
 module AlleysHelper
   def states_option
-    ::States.map { |key, value| [value, key] }
+    ::STATES.map { |key, value| [value, key] }
   end
 end
