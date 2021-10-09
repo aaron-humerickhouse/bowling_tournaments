@@ -22,9 +22,9 @@ describe Notifications::Service do
     let!(:day_of) { create(:tournament, starts_at: 0.days.from_now) }
     let!(:yesterday) { create(:tournament, starts_at: 1.day.ago) }
 
-    subject(Notifications::Service.new.nightly_notify)
+    subject { Notifications::Service.new.nightly_notify }
 
-    it 'notifies using the notification period day' do
+    xit 'notifies using the notification period day' do
       NotificationMailer.with(tournament: first_day).nightly_notify.deliver_now
       # UserMailer.with(user: user).weekly_summary.deliver_now
     end

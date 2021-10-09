@@ -8,38 +8,112 @@ orbs:
   ruby: circleci/ruby@volatile
   node: circleci/node@volatile
 
+ruby_cache_version: v1
+node_cache_version: v1
+
 executors:
   default:
     docker:
-      - image: cimg/ruby:3.0.2-node-browsers
-      - image: cimg/postgres:13.2
+      - image: cimg/ruby:3.0.2-browsers
+        environment:
+          RAILS_ENV: test
+          BOWLING_TOURNAMENTS_DATABASE_USERNAME: postgres
+          BOWLING_TOURNAMENTS_DATABASE_PASSWORD: magic
+      - image: circleci/postgres:13.2
         auth:
           username: timberings
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         environment:
           POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: magic
+          POSTGRES_DB: bowling_tournaments_test
 
 commands:
   bundler-audit:
     steps:
       - run:
+          name: 'Update Bundler Audit Definitions'
+          command: bundle-audit update
+      - run:
           name: 'Bundler Audit'
-          command: bundler-audit
+          command: bundle exec bundler-audit
   rubocop:
     steps:
       - run:
           name: Rubocop
-          command: rubocop
+          command: bundle exec rubocop
   brakeman:
     steps:
       - run:
           name: Brakeman
-          command: brakeman
+          command: bundle exec brakeman
+  setup-database:
+    steps:
+      - run:
+          name: Waiting for PostgreSQL to start
+          command: |
+            for i in `seq 1 30`;
+            do
+              nc -z localhost 5432 && echo Success && exit 0
+              echo -n .
+              sleep 2
+            done
+            echo Failed waiting for Postgres && exit 1
+      - run:
+          name: Setup Database
+          command: bundle exec rake db:schema:load
+      - run:
+          name: Migrate Database
+          command: bundle exec rake db:migrate
+      - run:
+          name: Seed Database
+          command: bundle exec rake db:seed
   rspec:
     steps:
       - run:
           name: Rspec
-          command: rspec --format progress --format RspecJunitFormatter --out rspec.xml
+          command: bundle exec rspec --format progress --format RspecJunitFormatter --out test-results/rspec.xml
+      - store_test_results:
+          path: test-results
+
+  install-packages:
+    parameters:
+      cache-key:
+        type: string
+        default: 'v1'
+    steps:
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - '<<parameters.cache-key>>-yarn-packages-{{ checksum "yarn.lock" }}'
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: '<<parameters.cache-key>>-yarn-packages-{{ checksum "yarn.lock" }}'
+          paths:
+            - .yarn/cache
+            - .yarn/unplugged
+  install-deps:
+    parameters:
+      cache-key:
+        type: string
+        default: 'v1'
+    steps:
+      - restore_cache:
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - '<<parameters.cache-key>>-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}'
+            - '<<parameters.cache-key>>-gem-cache-{{ arch }}-{{ .Branch }}-'
+            - '<<parameters.cache-key>>-gem-cache-{{ arch }}-'
+      - run: bundle install
+      - run: bundle clean --force
+      - save_cache:
+          paths:
+            - ~/.bundle
+          key: '<<parameters.cache-key>>-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}'
+
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -47,13 +121,11 @@ jobs:
   static-analysis:
     executor:
       name: default
+    resource_class: small
     steps:
       - checkout
-      - ruby/install-deps
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-          cache-version: v1
-          pkg-manager: yarn
+      - install-deps
+      - install-packages
       - bundler-audit
       - rubocop
       - brakeman
@@ -61,13 +133,12 @@ jobs:
   rspec:
     executor:
       name: default
+    resource_class: small
     steps:
       - checkout
-      - ruby/install-deps
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-          cache-version: v1
-          pkg-manager: yarn
+      - install-deps
+      - install-packages
+      - setup-database
       - rspec
 
 # Invoke jobs via workflows

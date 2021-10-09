@@ -26,7 +26,7 @@ RSpec.describe '/user_settings', type: :request do
   end
 
   describe 'GET /index' do
-    it 'renders a successful response' do
+    xit 'renders a successful response' do
       UserSetting.create! valid_attributes
       get user_settings_url
       expect(response).to be_successful
@@ -34,7 +34,7 @@ RSpec.describe '/user_settings', type: :request do
   end
 
   describe 'GET /show' do
-    it 'renders a successful response' do
+    xit 'renders a successful response' do
       user_setting = UserSetting.create! valid_attributes
       get user_setting_url(user_setting)
       expect(response).to be_successful
@@ -42,14 +42,14 @@ RSpec.describe '/user_settings', type: :request do
   end
 
   describe 'GET /new' do
-    it 'renders a successful response' do
+    xit 'renders a successful response' do
       get new_user_setting_url
       expect(response).to be_successful
     end
   end
 
   describe 'GET /edit' do
-    it 'render a successful response' do
+    xit 'render a successful response' do
       user_setting = UserSetting.create! valid_attributes
       get edit_user_setting_url(user_setting)
       expect(response).to be_successful
@@ -58,26 +58,26 @@ RSpec.describe '/user_settings', type: :request do
 
   describe 'POST /create' do
     context 'with valid parameters' do
-      it 'creates a new UserSetting' do
+      xit 'creates a new UserSetting' do
         expect do
           post user_settings_url, params: { user_setting: valid_attributes }
         end.to change(UserSetting, :count).by(1)
       end
 
-      it 'redirects to the created user_setting' do
+      xit 'redirects to the created user_setting' do
         post user_settings_url, params: { user_setting: valid_attributes }
         expect(response).to redirect_to(user_setting_url(UserSetting.last))
       end
     end
 
     context 'with invalid parameters' do
-      it 'does not create a new UserSetting' do
+      xit 'does not create a new UserSetting' do
         expect do
           post user_settings_url, params: { user_setting: invalid_attributes }
         end.to change(UserSetting, :count).by(0)
       end
 
-      it "renders a successful response (i.e. to display the 'new' template)" do
+      xit "renders a successful response (i.e. to display the 'new' template)" do
         post user_settings_url, params: { user_setting: invalid_attributes }
         expect(response).to be_successful
       end
@@ -90,14 +90,14 @@ RSpec.describe '/user_settings', type: :request do
         skip('Add a hash of attributes valid for your model')
       end
 
-      it 'updates the requested user_setting' do
+      xit 'updates the requested user_setting' do
         user_setting = UserSetting.create! valid_attributes
         patch user_setting_url(user_setting), params: { user_setting: new_attributes }
         user_setting.reload
         skip('Add assertions for updated state')
       end
 
-      it 'redirects to the user_setting' do
+      xit 'redirects to the user_setting' do
         user_setting = UserSetting.create! valid_attributes
         patch user_setting_url(user_setting), params: { user_setting: new_attributes }
         user_setting.reload
@@ -115,14 +115,14 @@ RSpec.describe '/user_settings', type: :request do
   end
 
   describe 'DELETE /destroy' do
-    it 'destroys the requested user_setting' do
+    xit 'destroys the requested user_setting' do
       user_setting = UserSetting.create! valid_attributes
       expect do
         delete user_setting_url(user_setting)
       end.to change(UserSetting, :count).by(-1)
     end
 
-    it 'redirects to the user_settings list' do
+    xit 'redirects to the user_settings list' do
       user_setting = UserSetting.create! valid_attributes
       delete user_setting_url(user_setting)
       expect(response).to redirect_to(user_settings_url)

@@ -26,7 +26,7 @@ RSpec.describe '/tournaments', type: :request do
   end
 
   describe 'GET /index' do
-    it 'renders a successful response' do
+    xit 'renders a successful response' do
       Tournament.create! valid_attributes
       get tournaments_url
       expect(response).to be_successful
@@ -34,7 +34,7 @@ RSpec.describe '/tournaments', type: :request do
   end
 
   describe 'GET /show' do
-    it 'renders a successful response' do
+    xit 'renders a successful response' do
       tournament = Tournament.create! valid_attributes
       get tournament_url(tournament)
       expect(response).to be_successful
@@ -42,14 +42,14 @@ RSpec.describe '/tournaments', type: :request do
   end
 
   describe 'GET /new' do
-    it 'renders a successful response' do
+    xit 'renders a successful response' do
       get new_tournament_url
       expect(response).to be_successful
     end
   end
 
   describe 'GET /edit' do
-    it 'render a successful response' do
+    xit 'render a successful response' do
       tournament = Tournament.create! valid_attributes
       get edit_tournament_url(tournament)
       expect(response).to be_successful
@@ -58,26 +58,26 @@ RSpec.describe '/tournaments', type: :request do
 
   describe 'POST /create' do
     context 'with valid parameters' do
-      it 'creates a new Tournament' do
+      xit 'creates a new Tournament' do
         expect do
           post tournaments_url, params: { tournament: valid_attributes }
         end.to change(Tournament, :count).by(1)
       end
 
-      it 'redirects to the created tournament' do
+      xit 'redirects to the created tournament' do
         post tournaments_url, params: { tournament: valid_attributes }
         expect(response).to redirect_to(tournament_url(Tournament.last))
       end
     end
 
     context 'with invalid parameters' do
-      it 'does not create a new Tournament' do
+      xit 'does not create a new Tournament' do
         expect do
           post tournaments_url, params: { tournament: invalid_attributes }
         end.to change(Tournament, :count).by(0)
       end
 
-      it "renders a successful response (i.e. to display the 'new' template)" do
+      xit "renders a successful response (i.e. to display the 'new' template)" do
         post tournaments_url, params: { tournament: invalid_attributes }
         expect(response).to be_successful
       end
@@ -90,14 +90,14 @@ RSpec.describe '/tournaments', type: :request do
         skip('Add a hash of attributes valid for your model')
       end
 
-      it 'updates the requested tournament' do
+      xit 'updates the requested tournament' do
         tournament = Tournament.create! valid_attributes
         patch tournament_url(tournament), params: { tournament: new_attributes }
         tournament.reload
         skip('Add assertions for updated state')
       end
 
-      it 'redirects to the tournament' do
+      xit 'redirects to the tournament' do
         tournament = Tournament.create! valid_attributes
         patch tournament_url(tournament), params: { tournament: new_attributes }
         tournament.reload
@@ -106,7 +106,7 @@ RSpec.describe '/tournaments', type: :request do
     end
 
     context 'with invalid parameters' do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
+      xit "renders a successful response (i.e. to display the 'edit' template)" do
         tournament = Tournament.create! valid_attributes
         patch tournament_url(tournament), params: { tournament: invalid_attributes }
         expect(response).to be_successful
@@ -115,14 +115,14 @@ RSpec.describe '/tournaments', type: :request do
   end
 
   describe 'DELETE /destroy' do
-    it 'destroys the requested tournament' do
+    xit 'destroys the requested tournament' do
       tournament = Tournament.create! valid_attributes
       expect do
         delete tournament_url(tournament)
       end.to change(Tournament, :count).by(-1)
     end
 
-    it 'redirects to the tournaments list' do
+    xit 'redirects to the tournaments list' do
       tournament = Tournament.create! valid_attributes
       delete tournament_url(tournament)
       expect(response).to redirect_to(tournaments_url)
