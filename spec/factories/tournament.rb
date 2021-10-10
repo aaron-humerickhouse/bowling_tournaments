@@ -13,6 +13,6 @@ FactoryBot.define do
     contact_email { Faker::Internet.safe_email }
     contact_phone { Faker::PhoneNumber.phone_number }
 
-    after(:build) { |user| user.class.skip_callback(:create, :after, :notify_new_tournament) }
+    # after(:build) { |tournament| tournament.class.skip_callback(:create, :after, :notify_new_tournament) }
   end
 end

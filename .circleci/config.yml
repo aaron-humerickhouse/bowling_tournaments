@@ -19,7 +19,10 @@ executors:
           RAILS_ENV: test
           BOWLING_TOURNAMENTS_DATABASE_USERNAME: postgres
           BOWLING_TOURNAMENTS_DATABASE_PASSWORD: magic
-      - image: circleci/postgres:13.2
+          ACCEPTANCE_RAILS_PORT: 5017
+          POSTGRES_PORT: 5432
+
+      - image: circleci/postgres:12.8
         auth:
           username: timberings
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
@@ -33,7 +36,7 @@ commands:
     steps:
       - run:
           name: 'Update Bundler Audit Definitions'
-          command: bundle-audit update
+          command: bundle exec bundle-audit update
       - run:
           name: 'Bundler Audit'
           command: bundle exec bundler-audit
@@ -54,11 +57,17 @@ commands:
           command: |
             for i in `seq 1 30`;
             do
-              nc -z localhost 5432 && echo Success && exit 0
+              nc -z localhost $POSTGRES_PORT && echo Success && exit 0
               echo -n .
               sleep 2
             done
             echo Failed waiting for Postgres && exit 1
+      - run:
+          name: Setup psql client
+          command: |
+            sudo apt-get update
+            sudo apt-get install postgresql-client-12
+
       - run:
           name: Setup Database
           command: bundle exec rake db:schema:load
@@ -72,9 +81,35 @@ commands:
     steps:
       - run:
           name: Rspec
-          command: bundle exec rspec --format progress --format RspecJunitFormatter --out test-results/rspec.xml
+          command: bundle exec rspec --format progress --format RspecJunitFormatter --out results/rspec/junit.xml
       - store_test_results:
-          path: test-results
+          path: results/rspec
+  cypress:
+    steps:
+      - run:
+          name: Acceptance Tests
+          command: |
+            CYPRESS=1 bin/rails server -p $ACCEPTANCE_RAILS_PORT &
+
+            RAILS_STARTED=0
+            for i in `seq 1 30`; do
+              curl -v -s http://localhost:$ACCEPTANCE_RAILS_PORT | grep BowlingTournaments && RAILS_STARTED=1 && echo Success && break
+              echo Polling for rails on port $ACCEPTANCE_RAILS_PORT
+              sleep 3
+            done
+
+            if [ "$RAILS_STARTED" -eq "0" ];then echo "Rails failed to start in time" && exit 1; fi
+
+            curl localhost:$ACCEPTANCE_RAILS_PORT | grep BowlingTournaments
+
+            npx cypress run --reporter=junit --reporter-options "mochaFile=results/acceptance/junit-[hash].xml"
+#            kill $(lsof -ti tcp:$ACCEPTANCE_RAILS_PORT) || true
+      - store_test_results:
+          path: results/acceptance
+      - store_artifacts:
+          path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/video
 
   install-packages:
     parameters:
@@ -87,19 +122,21 @@ commands:
           keys:
             - '<<parameters.cache-key>>-yarn-packages-{{ checksum "yarn.lock" }}'
       - run:
-          name: Install Dependencies
+          name: Install Packages
           command: yarn install --immutable
       - save_cache:
           name: Save Yarn Package Cache
           key: '<<parameters.cache-key>>-yarn-packages-{{ checksum "yarn.lock" }}'
           paths:
+            - node_modules
             - .yarn/cache
             - .yarn/unplugged
+
   install-deps:
     parameters:
       cache-key:
         type: string
-        default: 'v1'
+        default: 'v2'
     steps:
       - restore_cache:
           keys:
@@ -107,11 +144,11 @@ commands:
             - '<<parameters.cache-key>>-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}'
             - '<<parameters.cache-key>>-gem-cache-{{ arch }}-{{ .Branch }}-'
             - '<<parameters.cache-key>>-gem-cache-{{ arch }}-'
-      - run: bundle install
+      - run: bundle install --path vendor/bundle
       - run: bundle clean --force
       - save_cache:
           paths:
-            - ~/.bundle
+            - vendor/bundle
           key: '<<parameters.cache-key>>-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}'
 
 
@@ -141,11 +178,26 @@ jobs:
       - setup-database
       - rspec
 
+  acceptance:
+    executor:
+      name: default
+    resource_class: small
+    steps:
+      - checkout
+      - install-deps
+      - install-packages
+      - setup-database
+      - cypress
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  default: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  default:
     jobs:
       - static-analysis
-      - rspec
+      - rspec:
+          requires:
+            - static-analysis
+      - acceptance:
+          requires:
+            - rspec

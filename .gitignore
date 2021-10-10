@@ -12,6 +12,7 @@ log/
 tmp/
 !/log/.keep
 !/tmp/.keep
+*.log
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
@@ -36,3 +37,8 @@ yarn-debug.log*
 .yarn-integrity
 
 .env
+
+/cypress/videos
+/cypress/screenshots
+/vendor
+/results

@@ -27,6 +27,8 @@ gem 'webpacker', '~> 5.0'
 # gem 'image_processing', '~> 1.2'
 
 group :development, :test do
+  gem 'cypress-on-rails'
+  gem 'database_cleaner'
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker'

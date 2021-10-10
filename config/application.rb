@@ -20,5 +20,10 @@ module BowlingTournaments
     #
     # config.time_zone = "Central Time (US & Canada)"
     config.eager_load_paths << Rails.root.join('domains')
+
+    # Seg fault issue
+    config.assets.configure do |env|
+      env.export_concurrent = false
+    end
   end
 end
