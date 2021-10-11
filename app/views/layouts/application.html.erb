@@ -9,6 +9,8 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1495283238101436"
+            crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -66,7 +68,17 @@
   </nav>
 
   <div class="container-fluid pl-5 pr-5 mb-4">
-      <%= yield %>
+
+    <div class="d-flex">
+      <div>
+        <%= yield %>
+      </div>
+      <div class="mr-auto">
+        <a href="https://bowlifi.com#uAARONH">
+          <%= image_tag 'ad.png', class: 'ad' %>
+        </a>
+      </div>
+    </div>
   </div>
   </body>
 </html>
