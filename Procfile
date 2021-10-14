@@ -1,2 +1,3 @@
-web: rails s -p 3000
-background_jobs: sidekiq
+web: bundle exec rails s -p $PORT
+background_jobs: bundle exec sidekiq -e production -C config/sidekiq.yml
+release: bundle exec rake db:migrate
