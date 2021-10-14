@@ -7,8 +7,11 @@ class Tournament < ApplicationRecord
   #   SINGLES: 'SINGLES', DOUBLES: 'DOUBLES', TEAM: 'TEAM',
   #   DUTCH: 'DUTCH', BAKER: 'BAKER', OTHER: 'OTHER'
   # }
+  has_one_attached :flyer
 
   belongs_to :alley
+
+  validate :correct_document_mime_type
 
   # after_create :notify_new_tournament
 
@@ -40,5 +43,12 @@ class Tournament < ApplicationRecord
       hash[arr.to_sym] = arr
     end
     hash
+  end
+
+  def correct_document_mime_type
+    if document.attached? && !document.content_type.in?(%w(image/png image/jpeg application/pdf))
+      document.purge # delete the uploaded file
+      errors.add(:document, 'Must be a PDF or a DOC file')
+    end
   end
 end

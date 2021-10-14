@@ -51,8 +51,16 @@ class TournamentsController < ApplicationController
 
   # PATCH/PUT /tournaments/1 or /tournaments/1.json
   def update
+    attributes = tournament_params.to_h.except!('start_date', 'start_time')
+    date = tournament_params['start_date']
+    time = tournament_params['start_time']
+    binding.pry
+    event_datetime = DateTime.parse("#{date} #{time}")
+
+    attributes['starts_at'] = event_datetime.to_s
+
     respond_to do |format|
-      if @tournament.update(tournament_params)
+      if @tournament.update(attributes)
         format.html { redirect_to @tournament, notice: 'Tournament was successfully updated.' }
         format.json { render :show, status: :ok, location: @tournament }
       else
@@ -89,8 +97,8 @@ class TournamentsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def tournament_params
     params.require(:tournament).permit(
-      :name, :alley_id, :start_date, :start_time, :flyer_url, :contact_name, :contact_email,
-      :contact_phone, :difficulty, events: [], participants: []
+      :name, :alley_id, :start_date, :start_time, :contact_name, :contact_email,
+      :contact_phone, :difficulty, :flyer, events: [], participants: []
     )
   end
 

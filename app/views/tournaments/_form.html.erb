@@ -31,13 +31,13 @@
 
   <div class="form-group">
     <div class="form-label">Date</div>
-    <%= form.text_field :start_date, type: 'date', class: 'form-control', min: Date.today %>
+    <%= form.text_field :start_date, type: 'date', class: 'form-control', min: Date.today, value: date_from_datetime(@tournament.starts_at) %>
 
   </div>
 
   <div class="form-group">
     <div class="form-label">Start Time</div>
-    <%= form.text_field :start_time, type: 'time', class: 'form-control' %>
+    <%= form.text_field :start_time, type: 'time', class: 'form-control', value: time_from_datetime(@tournament.starts_at) %>
   </div>
 
   <div class="form-group">
@@ -70,11 +70,6 @@
     <% end %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :flyer_url, class: 'form-label' %>
-    <%= form.text_field :flyer_url, class: 'form-control' %>
-  </div>
-
   <h2>Contact Info</h2>
 
   <div class="form-group">
@@ -92,6 +87,26 @@
     <%= form.text_field :contact_phone, class: 'form-control', type: 'tel', value: tournament&.contact_phone || current_user.phone_number %>
   </div>
 
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <label class="btn btn-primary">
+          Upload a flyer
+          <span style="display:none;">
+            <%= form.file_field :flyer, required: false, multiple: false  %>
+          </span>
+        </label>
+        <small id="imageHelp" class="form-text">png, jpeg, jpg, or pdf</small>
+      </div>
+    </div>
+    <div class="col-8">
+      <% if @tournament.flyer.attached? %>
+        <%= image_tag(@tournament.flyer, width: 500) %>
+        <br>
+      <% end %>
+    </div>
+  </div>
+    
   <div class="form-actions">
     <%= form.submit class: 'btn btn-primary' %>
     <%= link_to 'Back', :back, class: 'btn btn-secondary' %>

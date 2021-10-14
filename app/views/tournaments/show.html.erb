@@ -31,8 +31,8 @@
 </p>
 
 <p>
-  <strong>Flyer url:</strong>
-  <%= @tournament.flyer_url %>
+  <strong>Flyer:</strong>
+  <%= image_tag(@tournament.flyer, width: 500) if @tournament.flyer.attached? %>
 </p>
 
 <p>
