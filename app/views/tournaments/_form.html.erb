@@ -23,7 +23,7 @@
     <%= form.select(:alley_id,
                     options_for_select(@alleys.map{|a| ["#{a.name} - #{a.city}, #{a.state}", a.id]}),
                     { },
-                    {class: 'form-control selectpicker', prompt: 'Select One', 'data-live-search': "true"}
+                    {id: 'tournament_alley_id', class: 'form-control selectpicker', prompt: 'Select One', 'data-live-search': "true"}
         )
     %>
     <small id="emailHelp" class="form-text text-primary"><%= link_to 'Alley not found? Add new Alley', new_alley_path %></small>
@@ -106,7 +106,7 @@
       <% end %>
     </div>
   </div>
-    
+
   <div class="form-actions">
     <%= form.submit class: 'btn btn-primary' %>
     <%= link_to 'Back', :back, class: 'btn btn-secondary' %>
