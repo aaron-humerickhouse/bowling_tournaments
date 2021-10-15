@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'states_helper'
+require 'states'
 
 module AlleysHelper
   def states_option
