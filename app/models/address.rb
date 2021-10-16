@@ -4,7 +4,7 @@ class Address < ApplicationRecord
   has_one :alley
   has_many :tournaments
 
-  validates :zip_code, presence: true, format: { with: /^[0-9]{5}$/ }
+  validates :zip_code, presence: true, format: { with: /A[0-9]{5}z/ }
   validates :street_address, presence: true
   validates :state, presence: true
   validates :city, presence: true
