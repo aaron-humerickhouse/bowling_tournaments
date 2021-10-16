@@ -13,6 +13,9 @@ class Alley < ApplicationRecord
                                     attributes['zip_code'].blank?
                                 }
 
+  validates :name, presence: true
+  validates :address_id, presence: true
+
   def readable
     "#{name} - #{address.city}, #{::STATES[address.state.to_sym]}"
   end

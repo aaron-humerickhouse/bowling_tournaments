@@ -1,7 +1,25 @@
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <% if resource.errors.any? %>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+      <strong>
+        <%= pluralize(resource.errors.count, "error") %> prohibited registration:
+      </strong>
+      <ul>
+        <% resource.errors.each do |error| %>
+          <% if error.message == 'Complete personal information consent' %>
+            <li><%= error.message %></li>
+          <% else %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        <% end %>
+      </ul>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
 
   <h3>Account</h3>
   <div class="form-group">
@@ -12,8 +30,8 @@
   <div class="form-group">
     <%= f.label :password, class: 'form-label' %>
     <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
-    <% if @minimum_password_length %>
-      <small class="form-text text-muted"><%= @minimum_password_length %> characters minimum</small>
+    <% if Settings.registration.minimum_password_length %>
+      <small class="form-text text-muted"><%= Settings.registration.minimum_password_length %> characters minimum</small>
     <% end %>
   </div>
 
@@ -21,6 +39,16 @@
     <%= f.label :password_confirmation, class: 'form-label' %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
   </div>
+
+  <div class="form-group">
+    <div class="form-label">Personal Information Consent</div>
+    <div class="form-check">
+      <%= f.check_box(:coppa_check, { class: 'form-check-input' }) %>
+      <%= f.label :coppa_check, Settings.registration.coppa_text, class: 'form-check-label' %><br />
+    </div>
+    <%= f.hidden_field(:coppa_agreement, { value: Settings.registration.coppa_text} ) %>
+  </div>
+
   <br />
   <h3>Personal</h3>
   <div class="form-group">
@@ -59,6 +87,7 @@
       <% end %>
       </div>
   <% end %>
+  <br />
   <div class="actions">
     <%= f.submit "Sign up", class: 'btn btn-primary' %>
   </div>

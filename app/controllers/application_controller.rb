@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [
                                         :first_name,
                                         :last_name,
+                                        :coppa_check,
+                                        :coppa_agreement,
                                         {
                                           user_setting_attributes: [
                                             :zip_code,

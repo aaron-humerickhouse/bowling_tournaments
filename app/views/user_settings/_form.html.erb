@@ -1,14 +1,18 @@
 <%= form_with(url: settings_path, method: :put, model: @user_setting) do |form| %>
 
   <% if user_setting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user_setting.errors.count, "error") %> prohibited this user_setting from being saved:</h2>
-
+    <div class="alert alert-danger alert-dismissible" role="alert">
+      <strong>
+        <%= pluralize(user_setting.errors.count, "error") %> prohibited this user_setting from being saved:
+      </strong>
       <ul>
         <% user_setting.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
   <% end %>
 

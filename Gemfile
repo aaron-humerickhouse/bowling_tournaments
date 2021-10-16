@@ -7,6 +7,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails', '~> 6.1.4'
 
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'config'
 gem 'devise'
 gem 'foreman'
 gem 'geocoder'

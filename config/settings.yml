@@ -1,0 +1,5 @@
+registration:
+  coppa_text: "By selecting this box I acknowledge I am 13 years old or older and consent or have my parent or legal guardian's consent for my personal information to be collected. Personal information is collected but it is not sold or used for marketing."
+  minimum_password_length: 6
+  maximum_password_length: 64
+  email_regex: !ruby/regexp '/\A[^@\s]+@[^@\s]+\z/i'

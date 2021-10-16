@@ -4,6 +4,11 @@ class Address < ApplicationRecord
   has_one :alley
   has_many :tournaments
 
+  validates :zip_code, presence: true, format: { with: /^[0-9]{5}$/ }
+  validates :street_address, presence: true
+  validates :state, presence: true
+  validates :city, presence: true
+
   # geocoded_by :friendly_address
   after_validation :geocode
 

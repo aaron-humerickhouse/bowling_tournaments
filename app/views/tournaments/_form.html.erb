@@ -2,14 +2,17 @@
 
 <%= form_with(model: tournament) do |form| %>
   <% if tournament.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(tournament.errors.count, "error") %> prohibited this tournament from being saved:</h2>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+      <strong><%= pluralize(tournament.errors.count, "error") %> prohibited this tournament from being saved:</strong>
 
       <ul>
         <% tournament.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
   <% end %>
 

@@ -12,6 +12,15 @@ class Tournament < ApplicationRecord
   belongs_to :alley
 
   validate :correct_document_mime_type
+  validate :contact_email_or_phone_present
+
+  validates :alley, presence: true
+  validates :difficulty, presence: true
+  validates :events, presence: true
+  validates :participants, presence: true
+  validates :starts_at, presence: true
+  validates :contact_name, presence: true
+
 
   # after_create :notify_new_tournament
 
@@ -46,9 +55,16 @@ class Tournament < ApplicationRecord
   end
 
   def correct_document_mime_type
-    if document.attached? && !document.content_type.in?(%w(image/png image/jpeg application/pdf))
-      document.purge # delete the uploaded file
-      errors.add(:document, 'Must be a PDF or a DOC file')
-    end
+    return unless document.attached? && !document.content_type.in?(%w(image/png image/jpeg application/pdf))
+
+    document.purge # delete the uploaded file
+    errors.add(:document, 'Must be a pdf, png, jpeg, or jpg file')
+  end
+
+  def contact_email_or_phone_present
+    return if contact_phone.present? || contact_email.present?
+
+    errors.add(:contact_email, 'or contact phone must be present')
+    errors.add(:contact_phone, 'or contact email must be present')
   end
 end

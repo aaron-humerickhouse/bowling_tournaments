@@ -8,6 +8,10 @@ class User < ApplicationRecord
          :confirmable, :lockable
 
   has_one :user_setting
+  validates :coppa_check, presence: {  message: 'Complete personal information consent' }
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true, format: { with: Settings.registration.email_regex }
 
   accepts_nested_attributes_for :user_setting,
                                 allow_destroy: true,

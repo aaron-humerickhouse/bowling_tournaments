@@ -17,6 +17,8 @@ FactoryBot.define do
     reset_password_token { nil }
     unconfirmed_email { nil }
     unlock_token { nil }
+    coppa_check { true }
+    coppa_agreement { Settings.registration.coppa_text }
 
     after(:create) do |user|
       create(:user_setting, user: user)
