@@ -3,3 +3,8 @@ registration:
   minimum_password_length: 6
   maximum_password_length: 64
   email_regex: !ruby/regexp '/\A[^@\s]+@[^@\s]+\z/i'
+email:
+  username: <%= ENV.fetch('SENDGRID_USERNAME', '') %>
+  password: <%= ENV.fetch('SENDGRID_PASSWORD', '') %>
+site:
+  host: <%= ENV.fetch('HOST', 'https://bowling-tournaments.herokuapp.com') %>
