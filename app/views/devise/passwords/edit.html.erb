@@ -19,7 +19,9 @@
 
   <div class="actions">
     <%= f.submit "Change my password" %>
+    <%= link_to 'Back', :back, class: 'btn btn-secondary' %>
+
   </div>
 <% end %>
-
+<br/>
 <%= render "devise/shared/links" %>
