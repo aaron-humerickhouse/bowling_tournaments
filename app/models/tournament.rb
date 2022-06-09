@@ -11,7 +11,7 @@ class Tournament < ApplicationRecord
 
   belongs_to :alley
 
-  validate :correct_document_mime_type
+  # validate :correct_document_mime_type
   validate :contact_email_or_phone_present
 
   validates :alley, presence: true
